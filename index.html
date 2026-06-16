@@ -247,58 +247,68 @@ function isDeloadWeek(weekNum) {
 // ===== WEEK 1 — BASELINE =====
 function getBaselineWeek() {
   return [
-    { day:'Monday', type:'strength', title:'Lower Baseline — Find 5RM', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Warm Up',detail:'10 min bike or row + dynamic mobility',zone:0},
-        {name:'Back Squat 5RM',detail:'Work up to a 5-rep max. The heaviest you can do 5 clean reps with. Stop if form breaks — that\'s your max. LOG weight + RPE on last rep.',zone:0},
-        {name:'Romanian Deadlift',detail:'3 × 8 at challenging-but-clean weight. Hinge — push hips back.',zone:0},
-        {name:'Goblet Squat',detail:'3 × 10 moderate — feel the pattern.',zone:0}
-      ],
-      duration:'60 min', focus:'📍 Find your true Squat 5RM. This number anchors the next 25 weeks of lower-body work.' },
-
-    { day:'Tuesday', type:'intervals', title:'30-min Threshold TT — Baseline', icon:'⏱️', zone:4,
-      exercises:[
-        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
-        {name:'30-MIN TIME TRIAL',detail:'Run as hard as you can CONTINUOUSLY for 30 min. Treadmill or flat outdoor. Average pace = your current threshold. Don\'t go out too hot — find a hard but sustainable rhythm by min 5. LOG: avg pace, avg HR, how you felt at min 10/20/30.',zone:4},
-        {name:'Cool Down',detail:'10 min easy',zone:1}
-      ],
-      duration:'55 min', focus:'📍 The single most important test of Week 1. Sets your threshold pace, easy pace, and all zone bands for the whole program.' },
-
-    { day:'Wednesday', type:'strength', title:'Upper Baseline — Find 5RMs', icon:'💪', zone:0,
-      exercises:[
-        {name:'Warm Up',detail:'10 min + band pull-aparts + scap work',zone:0},
-        {name:'Overhead Press 5RM',detail:'Work up to strict 5RM. No leg drive.',zone:0},
-        {name:'Pull-Ups',detail:'Max strict reps in one set. If 10+ bodyweight, use added weight.',zone:0},
-        {name:'Bench Press 5RM',detail:'Work up to a 5RM. LOG weight + RPE.',zone:0},
-        {name:'DB Row',detail:'3 × 10 moderate — feel the pattern.',zone:0}
-      ],
-      duration:'70 min', focus:'📍 Log all three numbers. These anchor every upper day going forward.' },
-
-    { day:'Thursday', type:'run', title:'45-min Long Run Baseline', icon:'🏃', zone:2,
+    { day:'Monday', type:'run', title:'Long Run Baseline — 45 min', icon:'🏃', zone:2,
       exercises:[
         {name:'Easy Run',detail:'45 min at conversational pace (Z2). NOT a test. Should be able to speak in 3-4 sentence chunks without gasping. LOG: total distance, avg HR, avg pace, how it felt.',zone:2}
       ],
-      duration:'45 min', focus:'📍 Long run baseline. We want to see your easy-pace mileage capacity right now.' },
+      duration:'45 min', focus:'📍 WHY: This establishes your current easy-pace mileage capacity — the foundation for "faster for longer." 80% of Hyrox is just sustained aerobic effort. Knowing where your easy pace + HR sit today lets us measure improvement and set Z2 zones correctly. The number that drops your HR at the same pace 6 weeks from now = aerobic fitness gain.' },
 
-    { day:'Friday', type:'hyrox', title:'Hyrox-Specific Baseline', icon:'🎯', zone:4,
+    { day:'Tuesday', type:'strength', title:'Lower Baseline — Find Squat 5RM', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min bike/row + dynamic mobility',zone:0},
+        {name:'Back Squat 5RM',detail:'Work up to a 5-rep max. The heaviest 5 clean reps. Stop if form breaks. LOG weight + RPE on last rep.',zone:0},
+        {name:'Romanian Deadlift',detail:'3 × 8 at challenging but clean weight. Hinge — push hips back.',zone:0},
+        {name:'Walking Lunges',detail:'3 × 16 alternating, moderate DBs — feel the pattern.',zone:0},
+        {name:'Plank (anti-extension)',detail:'3 × 45 sec — squeeze everything, rib cage down.',zone:0},
+        {name:'Ab Wheel Rollout',detail:'3 × 8 from knees — control the negative.',zone:0}
+      ],
+      duration:'70 min', focus:'📍 WHY: Squat 5RM is the single most important strength number for Hyrox. It anchors every working weight in the program for the next 25 weeks. Heavy squat strength translates DIRECTLY to 152 kg sled push and sandbag lunges — your two heaviest stations. Anti-extension core (plank, ab wheel) builds the bracing pattern that protects your spine under heavy load.' },
+
+    { day:'Wednesday', type:'strength', title:'Upper Baseline — Find 5RMs', icon:'💪', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min + band pull-aparts + scap activation',zone:0},
+        {name:'Overhead Press 5RM',detail:'Work up to strict 5RM. No leg drive.',zone:0},
+        {name:'Pull-Ups',detail:'Max strict reps in one set. If 10+ bodyweight, use added weight.',zone:0},
+        {name:'Bench Press 5RM',detail:'Work up to a 5RM. LOG weight + RPE.',zone:0},
+        {name:'DB Row',detail:'3 × 10 moderate — feel the pattern.',zone:0},
+        {name:'Pallof Press (anti-rotation)',detail:'3 × 10/side cable or band, half-kneeling. Resist the twist.',zone:0},
+        {name:'Suitcase Carry',detail:'3 × 40m, one heavy DB — anti-lateral-flexion.',zone:0}
+      ],
+      duration:'75 min', focus:'📍 WHY: Wall ball throws (200 of them in doubles) demand shoulder endurance, and sled pull is a back-dominant station. Knowing your press, pull, and bench numbers lets us scale every upper session accurately. Anti-rotation core is critical here — your obliques control the trunk during single-arm farmers carry and asymmetric station loading.' },
+
+    { day:'Thursday', type:'hyrox', title:'Hyrox-Specific Baseline', icon:'🎯', zone:4,
       exercises:[
         {name:'Warm Up',detail:'5 min easy + dynamic',zone:0},
         {name:'Wall Ball Max Set',detail:'9 kg ball, 3.05m target. Max unbroken reps in one set. LOG the number.',zone:0},
         {name:'Sled Push',detail:'25m at 152 kg (Men\'s race weight). TIME it.',zone:0},
         {name:'Farmers Carry',detail:'Heaviest weight you can carry 50m unbroken. LOG weight + time.',zone:0},
-        {name:'Burpee Broad Jumps',detail:'30 sec max reps. LOG the count.',zone:0}
+        {name:'Burpee Broad Jumps',detail:'30 sec max reps. LOG the count.',zone:0},
+        {name:'Sandbag Lunges',detail:'20m at 20 kg (Men\'s race weight). TIME it.',zone:0}
       ],
-      duration:'45 min', focus:'📍 Establishes station strength baselines. Tells us which stations to attack first.' },
+      duration:'50 min', focus:'📍 WHY: This tells us which stations need the most work. Hyrox is a series of repeated efforts — the station that breaks you in training is the one that costs you 30+ seconds on race day. Logging baseline times now means we can measure improvement at the 8-week and 16-week checkpoints.' },
 
-    { day:'Saturday', type:'hyrox', title:'Mini Sim with Aidan', icon:'🏁', zone:3,
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+      exercises:[{name:'Rest',detail:'Full recovery. Sleep, hydrate, eat. The system you spent 4 days stressing rebuilds now.',zone:0}],
+      duration:'—', focus:'📍 WHY: You don\'t get stronger when you train — you get stronger when you recover. Friday is positioned mid-week so you go into the high-quality threshold session (Sat) and the posterior chain work (Sun) with fresh legs. Skip this and the back half of the week falls apart.' },
+
+    { day:'Saturday', type:'intervals', title:'30-min Threshold TT — Baseline', icon:'⏱️', zone:4,
       exercises:[
-        {name:'Mini Hyrox',detail:'4 × (1 km run + 1 station). Moderate effort — NOT all-out. Stations rotate: wall ball, sled push, sandbag lunge, burpees. Tests how you handle transitions + which stations feel hardest.',zone:3}
+        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+        {name:'30-MIN TIME TRIAL',detail:'Run as hard as you can CONTINUOUSLY for 30 min. Treadmill or flat outdoor. Average pace = your current threshold. Don\'t go out too hot — find a hard but sustainable rhythm by min 5. LOG: avg pace, avg HR, how you felt at min 10/20/30.',zone:4},
+        {name:'Cool Down',detail:'10 min easy',zone:1}
       ],
-      duration:'50 min', focus:'📍 First taste of race format. Goal is information, not a PR.' },
+      duration:'55 min', focus:'📍 WHY: This is THE most important test of Week 1. Your 30-min average pace defines your lactate threshold — the pace your body can clear lactate as fast as it produces it. Every Z1-Z5 band in the app derives from this number. The threshold pace also sets your race target for Tampa doubles and Dallas solo.' },
 
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
-      exercises:[{name:'Rest',detail:'Full recovery. Sleep, hydrate, eat.',zone:0}],
-      duration:'—', focus:'Sunday = restart prep. Don\'t train.' }
+    { day:'Sunday', type:'strength', title:'Posterior Baseline — Find Hip Thrust 5RM', icon:'🦵', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min walk + dynamic',zone:0},
+        {name:'Barbell Hip Thrust 5RM',detail:'Work up to a 5RM. Top of hip lift, squeeze glutes hard. This is your #1 posterior chain anchor — drives sled push power.',zone:0},
+        {name:'Single-Leg RDL',detail:'3 × 8/leg moderate DBs — balance + hamstring',zone:0},
+        {name:'Glute Bridge with Band',detail:'3 × 15, band around knees',zone:0},
+        {name:'Side Plank',detail:'3 × 30 sec/side — anti-lateral flexion core',zone:0},
+        {name:'Dead Bug',detail:'3 × 10/side — anti-extension core, slow controlled',zone:0}
+      ],
+      duration:'55 min', focus:'📍 WHY: Hip thrust is the single best posterior chain exercise for sled push — it directly trains hip extension under load. Knowing your 5RM here anchors all Sunday work going forward. Two lower days per week (heavy Tue + lighter Sun) is the structural choice that builds the leg strength your race demands.' }
   ];
 }
 
@@ -306,202 +316,226 @@ function getBaselineWeek() {
 function getFoundationWeek(weekNum) {
   const wk = weekNum - 1;
   const isDeload = (weekNum === 7);
-  const longRunMin = isDeload ? 45 : Math.min(45 + (wk * 5), 75);
+  const longMin = isDeload ? 45 : Math.min(50 + (wk * 5), 80);
+  const thresholdReps = isDeload ? 3 : Math.min(3 + Math.floor(wk/2), 5);
 
   return [
-    { day:'Monday', type:'strength', title:'Heavy Lower', icon:'🏋️', zone:0,
+    { day:'Monday', type:'run', title:`Long Easy Run — ${longMin} min`, icon:'🛣️', zone:2,
+      exercises:[
+        {name:'Long Easy Run',detail:`${longMin} min at conversational pace (Z2). HR under 155. If hills push HR up, walk them. This builds your aerobic engine — slowest pace IS the workout.`,zone:2}
+      ],
+      duration:`${longMin} min`, focus:'📍 WHY: Monday long run kicks the week off with the highest-volume aerobic stimulus. Easy mileage builds capillary density and mitochondria — the cellular machinery for "faster for longer." This is your VO2-max ceiling raiser, even though it feels easy. The slower you can hold the same HR, the fitter you\'re getting.' },
+
+    { day:'Tuesday', type:'strength', title:'Heavy Lower', icon:'🏋️', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min bike/row + leg swings + bodyweight squats',zone:0},
-        {name:'Back Squat',detail:`5 × 5 @ ${isDeload ? '70% 1RM (deload)' : 'RPE 7-8 (75-80% 1RM)'}. Add 5-10 lb when last set feels like RPE 7.`,zone:0},
-        {name:'Romanian Deadlift',detail:'4 × 6 @ RPE 7. Hinge — push hips back, feel hamstrings.',zone:0},
-        {name:'Walking Lunges',detail:'3 × 16 (alternating) with DBs 30-40% bodyweight',zone:0},
-        {name:'Calf Raises',detail:'3 × 15 heavy. Sled-push power.',zone:0},
-        {name:'Plank',detail:'3 × 45 sec — squeeze everything',zone:0}
+        {name:'Back Squat',detail:`5 × 5 @ ${isDeload ? '70% 1RM (deload)' : 'RPE 7-8 (75-80% 1RM)'}. Add 5-10 lb when last set hits RPE 7.`,zone:0},
+        {name:'Romanian Deadlift',detail:'4 × 6 @ RPE 7. Hinge — push hips back.',zone:0},
+        {name:'Walking Lunges',detail:'3 × 16 alternating with DBs at 30-40% bodyweight. Builds sandbag-lunge endurance.',zone:0},
+        {name:'Calf Raises',detail:'3 × 15 heavy — sled-push power.',zone:0},
+        {name:'Plank (anti-extension)',detail:'3 × 45 sec — rib cage down, glutes squeezed.',zone:0},
+        {name:'Ab Wheel Rollout',detail:'3 × 8 from knees — control the negative.',zone:0}
       ],
-      duration:'70 min', focus:`📍 Wk ${weekNum} of Foundation. Build the engine. ${isDeload ? 'DELOAD — drop volume, keep form.' : 'Add 5-10 lb when you hit 5×5 at RPE 7.'}` },
-
-    { day:'Tuesday', type:'intervals', title: isDeload ? 'Easy Run' : `Threshold ${Math.min(3 + Math.floor(wk/2), 5)} × 800m`, icon:'⚡', zone: isDeload ? 2 : 4,
-      exercises: isDeload ? [
-        {name:'Easy Run',detail:'30 min @ Z2 conversational',zone:2}
-      ] : [
-        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
-        {name:'Threshold Intervals',detail:`${Math.min(3 + Math.floor(wk/2), 5)} × 800m @ threshold pace (your Wk 1 TT pace). 90 sec easy jog between.`,zone:4},
-        {name:'Cool Down',detail:'10 min easy',zone:1}
-      ],
-      duration: isDeload ? '30 min' : '50 min', focus:'📍 Threshold raises your race pace ceiling. Quality > quantity.' },
+      duration:'75 min', focus:`📍 WHY: Heavy squat = the most direct strength carryover to 152 kg sled push you can train. 5×5 in the 75-80% range is the proven hypertrophy + strength sweet spot. ${isDeload ? 'This week is a deload — drop intensity to let tendons catch up, then come back stronger.' : 'Each week you add 5-10 lb when the top set feels like RPE 7, you\'re directly making race day stations feel lighter.'} Anti-extension core (plank + ab wheel) trains the bracing pattern that protects your spine when you load the bar heavy.` },
 
     { day:'Wednesday', type:'strength', title:'Heavy Upper', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + band pull-aparts + scap activation',zone:0},
-        {name:'Overhead Press',detail:`5 × 5 @ ${isDeload ? '70% 1RM (deload)' : 'RPE 7-8'}. Strict, no leg drive.`,zone:0},
-        {name:'Pull-Ups',detail:'4 × AMRAP (or band-assisted). Quality reps.',zone:0},
+        {name:'Overhead Press',detail:`5 × 5 @ ${isDeload ? '70%' : 'RPE 7-8'}. Strict, no leg drive.`,zone:0},
+        {name:'Pull-Ups',detail:'4 × AMRAP (or band-assisted). Quality reps — full hang to chin-over-bar.',zone:0},
         {name:'Bench Press',detail:`4 × 6 @ ${isDeload ? '70%' : 'RPE 7-8'}`,zone:0},
-        {name:'DB Row',detail:'3 × 10 heavy DB, controlled',zone:0},
-        {name:'Push Press',detail:'3 × 6 moderate — explosive overhead',zone:0},
-        {name:'Hanging Leg Raise',detail:'3 × 10 — straight legs to 90°',zone:0}
+        {name:'Single-Arm DB Row',detail:'3 × 8/side heavy DB, controlled',zone:0},
+        {name:'Push Press',detail:'3 × 6 moderate — explosive overhead, prep for wall balls.',zone:0},
+        {name:'Pallof Press (anti-rotation)',detail:'3 × 10/side cable or band, half-kneeling. Resist the twist.',zone:0},
+        {name:'Suitcase Carry',detail:'3 × 40m, one heavy DB — anti-lateral-flexion.',zone:0}
       ],
-      duration:'70 min', focus:'📍 Sled pull + wall ball depend on press strength. This day matters.' },
+      duration:'80 min', focus:'📍 WHY: Press + pull symmetry prevents shoulder injury under the high-volume wall ball + sled pull demands of Hyrox. Doubling overhead press strength means 200 wall ball throws stop feeling exhausting by minute 4. Pulling strength (pull-ups + rows) translates directly to sled pull race speed. Anti-rotation core controls the trunk during unilateral work — the same control you need for single-arm farmers.' },
 
-    { day:'Thursday', type:'run', title:`Long Easy Run — ${longRunMin} min`, icon:'🛣️', zone:2,
-      exercises:[
-        {name:'Long Easy Run',detail:`${longRunMin} min at conversational pace (Z2). HR should stay under 155. If you have to walk uphills to keep HR down, walk. This builds your aerobic base — slowest pace IS the workout.`,zone:2}
-      ],
-      duration:`${longRunMin} min`, focus:'📍 The cornerstone of Hyrox endurance. Easy runs are non-negotiable.' },
-
-    { day:'Friday', type:'hyrox', title:'Hyrox-Specific Strength', icon:'🎯', zone:3,
+    { day:'Thursday', type:'hyrox', title:'Hyrox-Specific — Technique', icon:'🎯', zone:3,
       exercises:[
         {name:'Warm Up',detail:'5 min row/bike + dynamic',zone:0},
-        {name:'Wall Ball Technique',detail:'4 × 15 reps @ 9 kg, 3.05m target. Focus on squat depth + clean throw. 60 sec rest between.',zone:0},
-        {name:'Sled Push Light',detail:'4 × 25m at ~50% race weight. Quality first.',zone:0},
-        {name:'Farmers Carry',detail:'4 × 40m moderate — grip + traps. Walk fast.',zone:0},
+        {name:'Wall Ball Technique',detail:'4 × 15 reps @ 9 kg, 3.05m target. Focus on squat depth + clean throw. 60 sec rest.',zone:0},
+        {name:'Sled Push Build-up',detail:`4 × 25m starting at ~50% race weight, adding load each set. ${weekNum >= 4 ? 'Build to 75-80% race weight by end of phase.' : 'Quality movement first.'}`,zone:0},
+        {name:'Farmers Carry',detail:'4 × 40m moderate-heavy. Walk fast, head up, core locked.',zone:0},
         {name:'Sandbag Lunges',detail:'3 × 20m moderate sandbag. First rep = last rep cadence.',zone:0},
         {name:'Burpee Broad Jumps',detail:'3 × 10 reps, steady cadence (~2 sec/rep). NOT sprints.',zone:0}
       ],
-      duration:'55 min', focus:'📍 LIGHT day before Saturday\'s sim. Build technique + endurance, not max lift.' },
+      duration:'55 min', focus:'📍 WHY: You can have the strongest squat in the gym and still bomb on race day if your wall ball technique is wasteful or your sled push pace is wrong. Foundation phase teaches your nervous system the MOVEMENT before it has to do it under race fatigue. Light-to-moderate loading lets us drill quality without burning the system.' },
 
-    { day:'Saturday', type:'hyrox', title:'Sim with Aidan', icon:'👥', zone:3,
-      exercises:[
-        {name:'Compromised Sim',detail:`${4 + Math.floor(wk/2)} × (1 km run + 1 station rotation). Moderate effort. Stations: wall ball, sled push, sandbag lunge, burpees. Practice transitions + pacing.`,zone:3}
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+      exercises:[{name:'Rest',detail:'Full recovery. Body absorbs the work.',zone:0}],
+      duration:'—', focus:'📍 WHY: Four days of high-stress work (long run, two heavy lifts, Hyrox stations) puts massive demand on the nervous system. Friday is the recovery window that lets adaptation actually happen. Going into Saturday\'s threshold fresh means you hit faster paces with the same effort — that\'s the whole point.' },
+
+    { day:'Saturday', type:'intervals', title: isDeload ? 'Easy Run' : `Threshold ${thresholdReps} × 800m`, icon:'⚡', zone: isDeload ? 2 : 4,
+      exercises: isDeload ? [
+        {name:'Easy Run',detail:'30 min @ Z2 conversational',zone:2}
+      ] : [
+        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+        {name:'Threshold Intervals',detail:`${thresholdReps} × 800m @ threshold pace (your Wk 1 TT pace). 90 sec easy jog between reps.`,zone:4},
+        {name:'Cool Down',detail:'10 min easy',zone:1}
       ],
-      duration:'60 min', focus:'📍 Doubles practice with Aidan. Race format introduction.' },
+      duration: isDeload ? '30 min' : '50 min', focus:'📍 WHY: Threshold work raises the ceiling on how fast you can run while still clearing lactate. This is the single most leveraged running session for "faster for longer" — every minute spent at threshold pushes your race-pace ceiling up. Saturday positions it after Friday\'s rest, so you can hit quality paces fresh. Your Tampa doubles target pace lives just above this number.' },
 
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
-      exercises:[{name:'Rest',detail:'Full recovery.',zone:0}],
-      duration:'—', focus:'Sunday = recovery. Don\'t train.' }
+    { day:'Sunday', type:'strength', title:'Light Posterior + Core', icon:'🦵', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min easy bike or walk',zone:0},
+        {name:'Barbell Hip Thrust',detail:`4 × 8 @ ${isDeload ? 'RPE 6 (deload)' : 'RPE 7-8'} — sled-push power anchor.`,zone:0},
+        {name:'Single-Leg RDL',detail:'3 × 8/leg moderate DBs — balance + hamstring',zone:0},
+        {name:'Glute Bridge with Band',detail:'3 × 15, band around knees',zone:0},
+        {name:'Back Extension',detail:'3 × 12 controlled — squeeze glutes at top',zone:0},
+        {name:'Side Plank',detail:'3 × 30 sec/side — anti-lateral flexion',zone:0},
+        {name:'Dead Bug',detail:'3 × 10/side — anti-extension, slow controlled',zone:0}
+      ],
+      duration:'55 min', focus:'📍 WHY: Two lower-body days per week is intentional. Sunday hits posterior chain (glutes + hamstrings + low back) where Tuesday hit quad-dominant squat. Glutes drive the sled push and reduce hamstring strain on lunges. The lighter load means recovery is fast and weekly training stays sustainable. Mixed core finisher hits both anti-extension and anti-lateral-flexion in one shorter dose.' }
   ];
 }
 
-// ===== PHASE 2 — THRESHOLD + DOUBLES DEV (Weeks 8-13) =====
+// ===== PHASE 2 — THRESHOLD + DOUBLES DEVELOPMENT (Weeks 8-13) =====
 function getThresholdWeek(weekNum) {
   const wk = weekNum - 7;
   const isDeload = (weekNum === 13);
-  const longRunMin = isDeload ? 60 : Math.min(75 + (wk * 3), 90);
+  const longMin = isDeload ? 60 : Math.min(80 + (wk * 3), 95);
   const thresholdReps = isDeload ? 3 : Math.min(4 + Math.floor(wk/2), 6);
 
   return [
-    { day:'Monday', type:'strength', title:'Heavy Lower', icon:'🏋️', zone:0,
+    { day:'Monday', type:'run', title:`Long Easy + Strides — ${longMin} min`, icon:'🛣️', zone:2,
+      exercises:[
+        {name:'Long Easy Run',detail:`${longMin} min @ Z2 conversational pace`,zone:2},
+        {name:'Strides',detail:'6 × 20 sec strides at the end (faster than 5K pace, NOT all-out). Builds neuromuscular speed.',zone:4}
+      ],
+      duration:`${longMin + 5} min`, focus:'📍 WHY: Long runs now build to 90+ min — your aerobic base is the platform for everything else. Adding 6 × 20 sec strides at the end recruits fast-twitch fibers without taxing the system, which keeps your top-end speed alive while you build endurance. This combo is exactly what elite runners use to avoid getting "slow but fit."' },
+
+    { day:'Tuesday', type:'strength', title:'Heavy Lower — Heavier Triples', icon:'🏋️', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + dynamic',zone:0},
-        {name:'Back Squat',detail:`4 × 5 @ ${isDeload ? '70%' : 'RPE 8'} (slightly lower volume, similar intensity)`,zone:0},
+        {name:'Back Squat',detail:`4 × 5 @ ${isDeload ? '70%' : 'RPE 8 (80-85% 1RM)'}. Lower volume, higher intensity.`,zone:0},
         {name:'Romanian Deadlift',detail:'4 × 6 @ RPE 7-8',zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg @ heavy DBs',zone:0},
-        {name:'Calf Raises',detail:'3 × 15',zone:0},
-        {name:'Plank',detail:'3 × 45 sec',zone:0}
+        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs — direct lunge prep',zone:0},
+        {name:'Calf Raises',detail:'3 × 15 heavy',zone:0},
+        {name:'Plank (anti-extension)',detail:'3 × 60 sec — progress from Phase 1',zone:0},
+        {name:'Hanging Leg Raise',detail:'3 × 8-10 straight legs to 90°+',zone:0}
       ],
-      duration:'65 min', focus:'📍 Strength MAINTAINED, not pushed. Energy shifts to runs this phase.' },
-
-    { day:'Tuesday', type:'intervals', title: isDeload ? 'Easy Run' : `Threshold ${thresholdReps} × 1 km`, icon:'⚡', zone: isDeload ? 2 : 4,
-      exercises: isDeload ? [
-        {name:'Easy Run',detail:'30 min @ Z2',zone:2}
-      ] : [
-        {name:'Warm Up',detail:'10 min easy + strides',zone:2},
-        {name:'Threshold Intervals',detail:`${thresholdReps} × 1 km @ threshold pace. 60 sec easy jog between. This is the phase\'s key workout.`,zone:4},
-        {name:'Cool Down',detail:'10 min easy',zone:1}
-      ],
-      duration: isDeload ? '30 min' : '55 min', focus:'📍 Threshold reps get LONGER this phase. We\'re asking your body to hold race effort longer.' },
+      duration:'75 min', focus:'📍 WHY: This is the phase where strength stops being theoretical and starts feeling like race weight. Lower volume + higher intensity (4×5 @ RPE 8) is the proven model for peak strength gains. Bulgarian split squats build single-leg strength + balance — the same patterns you need for 100m of sandbag lunges. Anti-extension core gets longer holds as the spine load increases.' },
 
     { day:'Wednesday', type:'strength', title:'Heavy Upper — Power Focus', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + band work',zone:0},
         {name:'Push Press',detail:'4 × 5 @ RPE 8 — explosive overhead. Power-endurance for wall balls.',zone:0},
-        {name:'Weighted Pull-Ups',detail:'3 × 6-8',zone:0},
+        {name:'Weighted Pull-Ups',detail:'3 × 6-8 (band-assisted if needed)',zone:0},
         {name:'Bench Press',detail:'3 × 8 @ RPE 7',zone:0},
-        {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
-        {name:'Hanging Leg Raise',detail:'3 × 10',zone:0}
+        {name:'Single-Arm DB Row',detail:'3 × 8/side heavy',zone:0},
+        {name:'Pallof Press (anti-rotation)',detail:'3 × 10/side, slower tempo',zone:0},
+        {name:'Half-Kneeling Cable Chop',detail:'3 × 10/side — high-to-low rotation control',zone:0}
       ],
-      duration:'65 min', focus:'📍 Shifting from pure strength to power-endurance. Sled pull + wall ball get faster.' },
+      duration:'75 min', focus:'📍 WHY: Phase 2 swaps pure strength for power-endurance — the ability to produce force REPEATEDLY without fading. Push press teaches your shoulders to explode through 200 wall ball throws. Weighted pull-ups directly improve sled pull time. The cable chop adds rotational core control because Hyrox transitions constantly demand it.' },
 
-    { day:'Thursday', type:'run', title:`Long Easy + Strides — ${longRunMin} min`, icon:'🛣️', zone:2,
-      exercises:[
-        {name:'Long Easy Run',detail:`${longRunMin} min @ Z2 conversational`,zone:2},
-        {name:'Strides',detail:'6 × 20 sec strides at the end (faster than 5K pace, NOT all-out)',zone:4}
-      ],
-      duration:`${longRunMin + 5} min`, focus:'📍 Aerobic base maintenance + speed primer at the end.' },
-
-    { day:'Friday', type:'hyrox', title:'Hyrox-Specific — Race Weight', icon:'🎯', zone:4,
+    { day:'Thursday', type:'hyrox', title:'Hyrox-Specific — Race Weight + Doubles', icon:'👥', zone:4,
       exercises:[
         {name:'Warm Up',detail:'5 min + dynamic',zone:0},
-        {name:'Wall Ball Pace Sets',detail:'3 × 30 reps @ 9 kg, 3.05m target. 60 sec rest. Target unbroken sets.',zone:0},
+        {name:'Wall Ball Pace Sets',detail:'3 × 30 reps @ 9 kg, 3.05m. 60 sec rest. Target unbroken sets.',zone:0},
         {name:'Sled Push Race Weight',detail:'4 × 25m @ 152 kg. Build to race intensity.',zone:0},
-        {name:'Farmers Heavy',detail:'4 × 50m @ heavy (build to 2 × 24 kg race weight)',zone:0},
-        {name:'Sandbag Lunges',detail:'3 × 20m @ 20 kg sandbag',zone:0}
+        {name:'Farmers Race Weight',detail:'4 × 50m @ 2 × 24 kg',zone:0},
+        {name:'Sandbag Lunges',detail:'3 × 20m @ 20 kg sandbag',zone:0},
+        {name:'Doubles Practice with Aidan',detail:`If schedules align, swap 1-2 stations into doubles-style switches (every 100-200m). Otherwise solo.`,zone:0}
       ],
-      duration:'60 min', focus:'📍 First touch of race weights. Build to spec.' },
+      duration:'65 min', focus:'📍 WHY: First touch of actual race weights. If sled push at 152 kg feels impossible now, we know what to scale before Tampa. Doubles practice with Aidan teaches station handoffs and pacing-together — the X-factor that separates good doubles teams from podium teams. Saving handoff practice for race week is a losing strategy.' },
 
-    { day:'Saturday', type:'hyrox', title:'Doubles Sim with Aidan', icon:'👥', zone:4,
-      exercises:[
-        {name:'Doubles Practice',detail:`${6 + Math.floor(wk/3)} × (1 km run + 1 station rotation) WITH Aidan. Practice switching on stations every 200m. Pacing together is the X-factor.`,zone:4}
-      ],
-      duration:'70 min', focus:'📍 Doubles switch drills. Separates good doubles teams from great ones.' },
-
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
       exercises:[{name:'Rest',detail:'Full recovery.',zone:0}],
-      duration:'—', focus:'Sunday = recovery.' }
-  ];
-}
+      duration:'—', focus:'📍 WHY: Volume is going up this phase — long runs to 95 min, threshold reps to 1km. Friday rest is what keeps that volume from breaking you. Skip it and Saturday\'s threshold quality drops. Recovery isn\'t weakness — it\'s when the adaptations actually compile.' },
 
-// ===== PHASE 3 — PERFORM UNDER FATIGUE + STRENGTH/ENDURANCE (Weeks 14-19) =====
-function getFatigueWeek(weekNum) {
-  const wk = weekNum - 13;
-  const isDeload = (weekNum === 19);
-  const longRunMin = isDeload ? 70 : Math.min(85 + (wk * 2), 95);
-
-  return [
-    { day:'Monday', type:'strength', title:'Heavy Lower — PR Push', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Warm Up',detail:'10 min + dynamic',zone:0},
-        {name:'Back Squat',detail:`5 × 3 @ ${isDeload ? '75%' : 'RPE 8-9'} (heavier triples, neural strength)`,zone:0},
-        {name:'Trap Bar Deadlift',detail:'4 × 4 @ heavy. Big posterior chain pull.',zone:0},
-        {name:'Goblet Squat',detail:'3 × 12 moderate — leg endurance',zone:0},
-        {name:'Walking Lunges',detail:'3 × 16 with moderate DBs',zone:0},
-        {name:'Plank',detail:'3 × 60 sec',zone:0}
-      ],
-      duration:'75 min', focus:'📍 Heavier triples. Your men\'s-weight sled push needs this strength push.' },
-
-    { day:'Tuesday', type:'intervals', title: isDeload ? 'Easy Run' : 'Compromised Threshold Intervals', icon:'💥', zone: isDeload ? 2 : 4,
+    { day:'Saturday', type:'intervals', title: isDeload ? 'Easy Run' : `Threshold ${thresholdReps} × 1 km`, icon:'⚡', zone: isDeload ? 2 : 4,
       exercises: isDeload ? [
         {name:'Easy Run',detail:'30 min @ Z2',zone:2}
       ] : [
-        {name:'Warm Up',detail:'10 min easy + strides',zone:2},
-        {name:'Compromised Intervals',detail:`4 × (1 station + 1 km @ threshold). Stations rotate: wall balls (30), sled push race weight, sandbag lunge 20m, burpees 30 sec. Run TIRED.`,zone:4},
+        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+        {name:'Threshold Intervals',detail:`${thresholdReps} × 1 km @ threshold pace. 60 sec easy jog between. Reps get LONGER this phase.`,zone:4},
         {name:'Cool Down',detail:'10 min easy',zone:1}
       ],
-      duration: isDeload ? '30 min' : '65 min', focus:'📍 Threshold AFTER fatigue. Closest stimulus to race reality.' },
+      duration: isDeload ? '30 min' : '55 min', focus:'📍 WHY: Threshold reps move from 800m to 1km — closer to actual Hyrox race distance (every Hyrox run is 1km). Your body learns to hold threshold effort for the full 1km without slowing. Hyrox finishing time is largely determined by your sustainable 1km race pace × 8 reps. This workout, every week, is what drives that number down.' },
+
+    { day:'Sunday', type:'strength', title:'Light Posterior + Core', icon:'🦵', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min easy',zone:0},
+        {name:'Barbell Hip Thrust',detail:`4 × 6 @ ${isDeload ? 'RPE 6' : 'RPE 7-8 (heavier than Phase 1)'}`,zone:0},
+        {name:'Trap Bar Deadlift',detail:'3 × 6 @ RPE 7 — second hinge anchor for the week.',zone:0},
+        {name:'Single-Leg RDL',detail:'3 × 8/leg moderate-heavy DBs',zone:0},
+        {name:'Reverse Hyper / Back Extension',detail:'3 × 12 controlled — posterior chain volume',zone:0},
+        {name:'Side Plank',detail:'3 × 40 sec/side',zone:0},
+        {name:'Dead Bug',detail:'3 × 10/side',zone:0}
+      ],
+      duration:'60 min', focus:'📍 WHY: Trap bar deadlift joins the menu — second heavy hinge pattern of the week without overloading the same movement. Hip thrust loads keep climbing because your glutes can keep adapting. Heavy posterior chain work shows up on race day as a sled push that doesn\'t slow over 50 m and lunges that don\'t collapse at rep 40.' }
+  ];
+}
+
+// ===== PHASE 3 — RACE-SPECIFIC STRENGTH + ENDURANCE (Weeks 14-19) =====
+function getFatigueWeek(weekNum) {
+  const wk = weekNum - 13;
+  const isDeload = (weekNum === 19);
+  const longMin = isDeload ? 70 : Math.min(90 + (wk * 2), 100);
+
+  return [
+    { day:'Monday', type:'run', title:`Long Run + Race-Pace Surges — ${longMin} min`, icon:'🛣️', zone:2,
+      exercises:[
+        {name:'Long Run with Surges',detail:`${longMin} min @ Z2 base. Insert 4 × 4 min @ race pace in the middle (Tampa doubles goal pace ~7:50/mile). 2 min easy jog between surges.`,zone:3}
+      ],
+      duration:`${longMin} min`, focus:'📍 WHY: Race day requires shifting between easy and hard repeatedly — you finish a station, then have to hit race pace immediately. This long run teaches your body to switch gears mid-effort while still being long enough to drain glycogen. The surges practice exactly the pace-change skill you\'ll need on the runs between Tampa stations.' },
+
+    { day:'Tuesday', type:'strength', title:'Heavy Lower — PR Push', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Warm Up',detail:'10 min + dynamic',zone:0},
+        {name:'Back Squat',detail:`5 × 3 @ ${isDeload ? '75%' : 'RPE 8-9 (85-90% 1RM)'}. Heavier triples — neural strength push.`,zone:0},
+        {name:'Trap Bar Deadlift',detail:'4 × 4 @ heavy — big posterior chain pull, complements squat.',zone:0},
+        {name:'Goblet Squat',detail:'3 × 12 moderate — leg endurance volume',zone:0},
+        {name:'Walking Lunges',detail:'3 × 16 with moderate DBs — sandbag prep',zone:0},
+        {name:'Plank (anti-extension)',detail:'3 × 60 sec',zone:0},
+        {name:'Ab Wheel Rollout',detail:'3 × 10 — full extension if able',zone:0}
+      ],
+      duration:'80 min', focus:'📍 WHY: This is the strength peak. Heavy triples (5×3 at 85-90%) build the maximal force production that makes 152 kg sled push feel manageable. Trap bar deadlift adds a second heavy hinge each week, building posterior chain mass that doubles as injury insurance. Without THIS phase of heavy lower work, race weights stay heavy.' },
 
     { day:'Wednesday', type:'strength', title:'Heavy Upper — Power Endurance', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + band work',zone:0},
-        {name:'Push Press',detail:'5 × 3 @ heavy. Neural drive.',zone:0},
+        {name:'Push Press',detail:'5 × 3 @ heavy — neural drive.',zone:0},
         {name:'Weighted Pull-Ups',detail:'4 × 5 @ added weight',zone:0},
-        {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
-        {name:'Density Circuit',detail:'5 min AMRAP: 10 push press (moderate) + 8 rows. Quality reps only.',zone:0}
+        {name:'Single-Arm DB Row',detail:'3 × 8/side heavy',zone:0},
+        {name:'Density Circuit',detail:'5 min AMRAP: 10 push press (moderate) + 8 rows + 8 push-ups. Quality reps only.',zone:0},
+        {name:'Pallof Press (anti-rotation)',detail:'3 × 12/side — tempo control',zone:0},
+        {name:'Half-Kneeling Cable Chop',detail:'3 × 10/side',zone:0}
       ],
-      duration:'70 min', focus:'📍 Strength + endurance combined. Hyrox shoulders need this.' },
+      duration:'80 min', focus:'📍 WHY: Upper strength combined with density work — the new skill is producing strength reps under cardiovascular stress. The 5-min AMRAP at the end teaches your shoulders to keep firing when your heart rate is at 180. That\'s exactly what minute 50 of Hyrox feels like at the wall ball station.' },
 
-    { day:'Thursday', type:'run', title:`Long Run + Race Pace Surges — ${longRunMin} min`, icon:'🛣️', zone:2,
+    { day:'Thursday', type:'hyrox', title:'Hyrox-Specific — Full Sim with Aidan', icon:'🏁', zone:4,
       exercises:[
-        {name:'Long Run with Surges',detail:`${longRunMin} min @ Z2 base. Insert 4 × 4 min @ race pace in the middle (Tampa goal pace ~7:50/mile for doubles). Recovery jog between.`,zone:3}
+        {name:'Full Doubles Sim',detail:'Half Hyrox doubles: 4 × 1 km + 4 stations at race intensity, with Aidan. Practice the FULL race format. Time it. Treat as race rehearsal. If Aidan unavailable, do solo at 75% intensity.',zone:4}
       ],
-      duration:`${longRunMin} min`, focus:'📍 Teaches your body to shift gears mid-run. Critical for race-day surges.' },
+      duration:'50-60 min', focus:'📍 WHY: This is where everything comes together. Half-Hyrox doubles sims surface every weakness — pacing errors, station handoff hiccups, fueling mistakes — at a manageable scale. You want all the mistakes happening NOW, not at Tampa. Each sim teaches your body what race-effort really feels like.' },
 
-    { day:'Friday', type:'hyrox', title:'Compromised Conditioning', icon:'💥', zone:4,
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+      exercises:[{name:'Rest',detail:'Full recovery — this phase is hardest. Don\'t train.',zone:0}],
+      duration:'—', focus:'📍 WHY: This is the highest-stress phase — long runs with surges, heavy triples, full sims. Friday rest isn\'t optional, it\'s the lever that makes the rest of the phase sustainable. The athletes who break in race-specific phase are the ones who skip recovery.' },
+
+    { day:'Saturday', type:'intervals', title: isDeload ? 'Easy Run' : 'Compromised Threshold Intervals', icon:'💥', zone: isDeload ? 2 : 4,
+      exercises: isDeload ? [
+        {name:'Easy Run',detail:'30 min @ Z2',zone:2}
+      ] : [
+        {name:'Warm Up',detail:'10 min easy + strides',zone:2},
+        {name:'Compromised Intervals',detail:'4 × (1 station + 1 km @ threshold). Stations rotate: 30 wall balls, 25m sled push race weight, 20m sandbag lunge, 30 sec burpees. Run TIRED.',zone:4},
+        {name:'Cool Down',detail:'10 min easy',zone:1}
+      ],
+      duration: isDeload ? '30 min' : '65 min', focus:'📍 WHY: This is the most race-specific stimulus possible — running threshold pace AFTER station fatigue. On race day, every 1 km run starts with already-tired legs. Compromised intervals teach your body that this is the new normal. Athletes who only run rested intervals get a brutal surprise on race day.' },
+
+    { day:'Sunday', type:'strength', title:'Light Posterior + Recovery Core', icon:'🦵', zone:0,
       exercises:[
-        {name:'Warm Up',detail:'5 min + dynamic',zone:0},
-        {name:'Wall Ball + Run Complex',detail:'4 × (30 wall balls @ 9kg + 200m run). Race effort.',zone:4},
-        {name:'Sled Push Recovery',detail:'3 × (25m @ 152 kg + 30 sec rest). Heavy doubles.',zone:0},
-        {name:'Farmers Heavy',detail:'4 × 50m @ race weight (2 × 24 kg)',zone:0}
+        {name:'Warm Up',detail:'10 min easy walk',zone:0},
+        {name:'Barbell Hip Thrust',detail:`4 × 6 @ ${isDeload ? 'RPE 6' : 'RPE 8 — heaviest of all phases'}`,zone:0},
+        {name:'Single-Leg RDL',detail:'3 × 8/leg heavy DBs',zone:0},
+        {name:'Step-Ups',detail:'3 × 10/leg moderate DBs — glute power + single-leg strength',zone:0},
+        {name:'Reverse Hyper / Back Extension',detail:'3 × 15 controlled',zone:0},
+        {name:'Bird Dog',detail:'3 × 8/side — slow, controlled, anti-extension + anti-rotation combo',zone:0},
+        {name:'Side Plank',detail:'3 × 45 sec/side',zone:0}
       ],
-      duration:'55 min', focus:'📍 Race-specific energy systems. Closest thing to actual race work.' },
-
-    { day:'Saturday', type:'hyrox', title:'FULL Doubles Sim with Aidan', icon:'🏁', zone:4,
-      exercises:[
-        {name:'Full Hyrox Doubles',detail:'8 × 1 km + all 8 stations at race intensity. Practice the FULL race format. Time it. Treat it like a race rehearsal.',zone:4}
-      ],
-      duration:'80-90 min', focus:'📍 This IS the race. Execute the plan you\'ve been building.' },
-
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
-      exercises:[{name:'Rest',detail:'Full recovery — this phase is hard.',zone:0}],
-      duration:'—', focus:'Sunday = mandatory full recovery this phase.' }
+      duration:'60 min', focus:'📍 WHY: Hip thrust hits its heaviest loads of the program here — your glutes have spent 18 weeks adapting to heavier and heavier load. Step-ups build single-leg power for the back half of sandbag lunges. By race day, your posterior chain has been trained, by volume and load, to handle anything Tampa throws at it.' }
   ];
 }
 
@@ -510,106 +544,111 @@ function getTampaTaperWeek(weekNum) {
   const wk = weekNum - 19;
 
   if (weekNum === 22) {
-    // Race week
+    // Race week — Tampa is Fri Oct 23
     return [
-      { day:'Monday', type:'strength', title:'Light Activation', icon:'🏋️', zone:0,
+      { day:'Monday', type:'run', title:'Easy Shake-Out Run', icon:'🏃', zone:2,
         exercises:[
-          {name:'Squat',detail:'3 × 3 @ 70% — feel the bar, no fatigue',zone:0},
-          {name:'Push Press',detail:'3 × 3 @ 70%',zone:0},
+          {name:'Easy Run',detail:'30-40 min easy Z2. NOTHING harder. Just keep the legs spinning.',zone:2}
+        ],
+        duration:'35 min', focus:'📍 WHY: Race week starts with movement, not training. An easy run keeps blood flowing to the muscles and tells your nervous system "we\'re still active" without adding fatigue. Sitting still all week before a race makes you feel sluggish on race day.' },
+
+      { day:'Tuesday', type:'strength', title:'Light Lower Activation', icon:'🏋️', zone:0,
+        exercises:[
+          {name:'Back Squat',detail:'3 × 3 @ 70% — feel the bar, no fatigue',zone:0},
+          {name:'Romanian Deadlift',detail:'3 × 5 @ 70%',zone:0},
           {name:'Plank',detail:'2 × 30 sec',zone:0}
         ],
-        duration:'30 min', focus:'📍 RACE WEEK. Activation only.' },
+        duration:'30 min', focus:'📍 WHY: Three light triples at 70% wakes up the neural pathways without depleting any energy stores. Going into a race with NO heavy stimulus all week leaves your legs feeling flat — this small dose keeps them primed.' },
 
-      { day:'Tuesday', type:'intervals', title:'Short Sharpening Intervals', icon:'⚡', zone:4,
+      { day:'Wednesday', type:'intervals', title:'Sharp Sharpening Intervals', icon:'⚡', zone:4,
         exercises:[
-          {name:'Warm Up',detail:'10 min easy + strides',zone:2},
-          {name:'Sharp Intervals',detail:'4 × 400m @ slightly above threshold. 90 sec rest. Sharp, not exhausting.',zone:4},
+          {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+          {name:'Sharp Intervals',detail:'4 × 400m @ slightly above threshold. 90 sec rest. SHARP, not exhausting.',zone:4},
           {name:'Cool Down',detail:'10 min easy',zone:1}
         ],
-        duration:'40 min', focus:'📍 Final sharpening session before Tampa.' },
+        duration:'40 min', focus:'📍 WHY: Short, sharp intervals at slightly-above-threshold pace remind your body what fast feels like, 48 hours before race day. The work is brief enough that recovery is essentially complete by Friday morning — you arrive at Tampa with sharp legs, not tired ones.' },
 
-      { day:'Wednesday', type:'hyrox', title:'Race Visualization + Light Practice', icon:'🎯', zone:0,
+      { day:'Thursday', type:'hyrox', title:'Race Plan Walk-Through with Aidan', icon:'🎯', zone:0,
         exercises:[
           {name:'Wall Ball Skills',detail:'2 × 15 reps technique focus',zone:0},
           {name:'Sled Push Light',detail:'2 × 25m @ 50% — feel only',zone:0},
-          {name:'Walk-through',detail:'Walk through race plan with Aidan. Visualize transitions. Plan switches.',zone:0}
+          {name:'Doubles Walk-Through',detail:'Walk through full race plan with Aidan. Visualize transitions. Plan station switches.',zone:0},
+          {name:'Light Stretch',detail:'10-15 min easy mobility',zone:0}
         ],
-        duration:'30 min', focus:'📍 Mental rehearsal day. Light work only.' },
-
-      { day:'Thursday', type:'rest', title:'Travel + Easy Walk', icon:'😴', zone:1,
-        exercises:[
-          {name:'Easy Walk',detail:'20-30 min easy walk. Hydrate. Eat normal.',zone:1}
-        ],
-        duration:'30 min', focus:'📍 Travel day. Don\'t train.' },
+        duration:'45 min', focus:'📍 WHY: The day before the race is for mental rehearsal, not physical preparation. Walking through the race plan with Aidan — exactly who does which sled lengths, when you switch on wall balls — removes race-day decision fatigue. Light physical touch keeps the body active without taxing it.' },
 
       { day:'Friday', type:'hyrox', title:'🏁 TAMPA DOUBLES — RACE DAY', icon:'🏆', zone:5,
         exercises:[
-          {name:'Race Day',detail:'GO WIN IT TOGETHER. Execute the doubles plan. Run at the slower partner\'s sustainable pace. All 8 × 1km, station switches every 200m.',zone:5}
+          {name:'Race Day',detail:'GO WIN IT TOGETHER. Execute the doubles plan. Run at the slower partner\'s sustainable pace. Station switches every 200m. This is what 21 weeks built.',zone:5}
         ],
-        duration:'~1:07', focus:'📍 RACE DAY. Tampa Mixed Doubles. Go execute.' },
+        duration:'~1:07', focus:'📍 WHY: Today is the test. Trust the training, execute the plan you walked through Thursday, and let 21 weeks of work show up. Run YOUR pace, not the people next to you. Doubles success is about not blowing up — pace conservatively early, finish strong.' },
 
       { day:'Saturday', type:'rest', title:'Full Recovery', icon:'😴', zone:0,
-        exercises:[{name:'Rest',detail:'Celebrate. Eat. Sleep.',zone:0}],
-        duration:'—', focus:'📍 Post-race recovery. Don\'t train.' },
+        exercises:[{name:'Rest',detail:'Celebrate. Eat. Sleep. Travel home.',zone:0}],
+        duration:'—', focus:'📍 WHY: Post-race day = complete rest. Your immune system is suppressed for 24-48 hours post-Hyrox, sleep + nutrition are everything. Skip any training urge — Dallas is 4 weeks away, you can\'t fast-track recovery.' },
 
       { day:'Sunday', type:'rest', title:'Easy Walk', icon:'🚶', zone:1,
         exercises:[{name:'Easy Walk',detail:'30 min easy walk. Reflect on race.',zone:1}],
-        duration:'30 min', focus:'📍 Active recovery walk.' }
+        duration:'30 min', focus:'📍 WHY: A 30-minute walk pumps blood through the legs, helping flush out residual soreness, without re-stressing the system. Mental reflection on the race — what worked, what didn\'t — turns Tampa into data for Dallas.' }
     ];
   }
 
   // Weeks 20-21 = Taper
   return [
-    { day:'Monday', type:'strength', title:'Light Lower', icon:'🏋️', zone:0,
+    { day:'Monday', type:'run', title:'Easy Run Only', icon:'🛣️', zone:2,
+      exercises:[
+        {name:'Easy Run',detail:`${wk === 1 ? '60' : '45'} min Z2 only. NO surges. Just keep the engine warm.`,zone:2}
+      ],
+      duration:`${wk === 1 ? '60' : '45'} min`, focus:'📍 WHY: Taper rule: volume drops, intensity stays. Easy Monday runs maintain aerobic fitness without adding stress. Cutting all hard efforts on Monday lets the legs feel less fatigued going into the threshold session Saturday.' },
+
+    { day:'Tuesday', type:'strength', title:'Light Lower', icon:'🏋️', zone:0,
       exercises:[
         {name:'Back Squat',detail:`3 × 3 @ ${wk === 1 ? '80%' : '75%'} (taper)`,zone:0},
         {name:'Romanian Deadlift',detail:'3 × 5 @ 75%',zone:0},
-        {name:'Lunges',detail:'2 × 10 light',zone:0},
+        {name:'Lunges',detail:'2 × 10 light DBs',zone:0},
         {name:'Plank',detail:'2 × 30 sec',zone:0}
       ],
-      duration:'45 min', focus:`📍 TAPER Wk ${wk}/2. Maintain neural feel, drop volume.` },
-
-    { day:'Tuesday', type:'intervals', title:'Short Threshold', icon:'⚡', zone:4,
-      exercises:[
-        {name:'Warm Up',detail:'10 min easy + strides',zone:2},
-        {name:'Sharp Intervals',detail:'3 × 1 km @ threshold pace. 90 sec rest.',zone:4},
-        {name:'Cool Down',detail:'10 min easy',zone:1}
-      ],
-      duration:'45 min', focus:'📍 Sharp, not exhausting. Stay race-ready.' },
+      duration:'45 min', focus:`📍 WHY: Taper Wk ${wk}/2. Strength is BUILT — taper is about maintenance, not gains. Three light triples preserve neural drive without depleting glycogen. Cutting volume now means you arrive at the race with fresh legs and full energy stores.` },
 
     { day:'Wednesday', type:'strength', title:'Light Upper', icon:'💪', zone:0,
       exercises:[
         {name:'Push Press',detail:`3 × 3 @ ${wk === 1 ? '80%' : '75%'}`,zone:0},
         {name:'Pull-Ups',detail:'3 × 5',zone:0},
-        {name:'DB Row',detail:'2 × 8 moderate',zone:0}
+        {name:'DB Row',detail:'2 × 8 moderate',zone:0},
+        {name:'Pallof Press',detail:'2 × 10/side',zone:0}
       ],
-      duration:'40 min', focus:'📍 Same logic — maintain feel, no fatigue.' },
+      duration:'40 min', focus:'📍 WHY: Same logic as lower — keep the patterns active, drop the volume. Push press triples at 75-80% keep the wall-ball pattern primed without burning shoulders for race day.' },
 
-    { day:'Thursday', type:'run', title:'Easy Run Only', icon:'🛣️', zone:2,
-      exercises:[
-        {name:'Easy Run',detail:`${wk === 1 ? '60' : '45'} min Z2 only. NO surges. Just keep the engine warm.`,zone:2}
-      ],
-      duration:`${wk === 1 ? '60' : '45'} min`, focus:'📍 Recovery-pace only. Less is more.' },
-
-    { day:'Friday', type:'hyrox', title:'Light Hyrox-Specific', icon:'🎯', zone:2,
+    { day:'Thursday', type:'hyrox', title:'Light Hyrox-Specific', icon:'🎯', zone:2,
       exercises:[
         {name:'Wall Ball Technique',detail:'3 × 10 light technique reps',zone:0},
         {name:'Sled Push Light',detail:'2 × 25m at 50% race weight',zone:0},
-        {name:'Farmers',detail:'2 × 40m moderate',zone:0}
+        {name:'Farmers Moderate',detail:'2 × 40m moderate',zone:0},
+        {name:'Sandbag Lunges Light',detail:'2 × 20m light sandbag',zone:0}
       ],
-      duration:'35 min', focus:'📍 Skill maintenance only. No fatigue.' },
+      duration:'35 min', focus:'📍 WHY: Just enough station touch to keep your nervous system familiar with the movements. Heavy work this week would compromise race-day legs. Quality movement at low load = the goal.' },
 
-    { day:'Saturday', type:'hyrox', title: wk === 1 ? 'Mini Sim with Aidan' : 'Race Visualization', icon:'👥', zone:3,
-      exercises: wk === 1 ? [
-        {name:'Mini Sim',detail:'3-4 × (1 km + 1 station) at race intensity, short.',zone:3}
-      ] : [
-        {name:'Walk-through',detail:'Walk transitions with Aidan. No real workout.',zone:0}
-      ],
-      duration: wk === 1 ? '45 min' : '20 min', focus: wk === 1 ? '📍 Final touch of race format.' : '📍 Pre-race mental rehearsal.' },
-
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
       exercises:[{name:'Rest',detail:'Full recovery.',zone:0}],
-      duration:'—', focus:'Sunday = rest.' }
+      duration:'—', focus:'📍 WHY: Friday is rest every week, but taper Friday is especially important — Saturday\'s threshold session is the last quality stimulus before race week, and you want to hit it fresh.' },
+
+    { day:'Saturday', type:'intervals', title:'Sharp Threshold', icon:'⚡', zone:4,
+      exercises:[
+        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+        {name:'Sharp Intervals',detail:'3 × 1 km @ threshold pace. 90 sec rest. Sharp, not exhausting.',zone:4},
+        {name:'Cool Down',detail:'10 min easy',zone:1}
+      ],
+      duration:'45 min', focus:'📍 WHY: Three quality 1 km reps at threshold is the volume drop from Phase 2-3 (4-6 reps) → race-week sharpness. Enough work to maintain race-pace ceiling without leaving the legs heavy.' },
+
+    { day:'Sunday', type:'strength', title:'Light Posterior + Core', icon:'🦵', zone:0,
+      exercises:[
+        {name:'Barbell Hip Thrust',detail:'3 × 5 @ 70% (taper)',zone:0},
+        {name:'Single-Leg RDL',detail:'2 × 6/leg moderate',zone:0},
+        {name:'Back Extension',detail:'2 × 10',zone:0},
+        {name:'Side Plank',detail:'2 × 30 sec/side',zone:0},
+        {name:'Dead Bug',detail:'2 × 8/side',zone:0}
+      ],
+      duration:'35 min', focus:'📍 WHY: Hip thrust load drops to 70% — just enough to keep glutes engaged, none of the heavy stress of Phase 3. Light core finisher because you need the abdominal patterns sharp on race day, not exhausted.' }
   ];
 }
 
@@ -620,154 +659,163 @@ function getSharpenWeek(weekNum) {
   if (wk === 1) {
     // Recovery week after Tampa
     return [
-      { day:'Monday', type:'rest', title:'Active Recovery', icon:'🚶', zone:1,
+      { day:'Monday', type:'rest', title:'Active Recovery Walk', icon:'🚶', zone:1,
         exercises:[
-          {name:'Easy Walk',detail:'30 min walk. Movement only.',zone:1}
+          {name:'Easy Walk',detail:'40 min walk. Movement only.',zone:1}
         ],
-        duration:'30 min', focus:'📍 Post-Tampa recovery. Body comes first.' },
+        duration:'40 min', focus:'📍 WHY: Post-race week starts with pure recovery. A 40-minute walk pumps blood through legs that are still healing from race effort, without adding any training stress. Trying to train hard this week wrecks your Dallas prep.' },
 
-      { day:'Tuesday', type:'run', title:'Easy Shake-Out Run', icon:'🏃', zone:2,
+      { day:'Tuesday', type:'strength', title:'Light Lower Reintroduction', icon:'🏋️', zone:0,
         exercises:[
-          {name:'Easy Run',detail:'30 min easy Z2 — see how the legs feel',zone:2}
+          {name:'Goblet Squat',detail:'3 × 8 moderate',zone:0},
+          {name:'Romanian Deadlift',detail:'3 × 6 moderate',zone:0},
+          {name:'Lunges',detail:'2 × 10/leg light',zone:0},
+          {name:'Plank',detail:'2 × 30 sec',zone:0}
         ],
-        duration:'30 min', focus:'📍 First real workout post-race.' },
+        duration:'40 min', focus:'📍 WHY: Light goblet squats instead of heavy back squats — re-engage the patterns without taxing recovery. Hyrox racing creates micro-tears that take 7-10 days to fully heal. Patience now = full strength for Dallas.' },
 
-      { day:'Wednesday', type:'strength', title:'Light Full Body', icon:'💪', zone:0,
+      { day:'Wednesday', type:'strength', title:'Light Upper Reintroduction', icon:'💪', zone:0,
         exercises:[
-          {name:'Goblet Squat',detail:'3 × 8 light',zone:0},
           {name:'Push Press',detail:'3 × 6 moderate',zone:0},
           {name:'Pull-Ups',detail:'3 × 5',zone:0},
-          {name:'Row',detail:'3 × 8 moderate',zone:0}
+          {name:'DB Row',detail:'3 × 8 moderate',zone:0},
+          {name:'Pallof Press',detail:'3 × 10/side',zone:0}
         ],
-        duration:'40 min', focus:'📍 Reintroduce strength gently.' },
+        duration:'40 min', focus:'📍 WHY: Same logic — light reintroduction. Sets the stage for week 24 maintenance work without overloading the system in the recovery window.' },
 
-      { day:'Thursday', type:'run', title:'Easy Run + Strides', icon:'🛣️', zone:2,
+      { day:'Thursday', type:'run', title:'Easy Shake-Out + Strides', icon:'🏃', zone:2,
         exercises:[
-          {name:'Easy Run',detail:'45 min Z2',zone:2},
+          {name:'Easy Run',detail:'45 min Z2 — see how the legs feel',zone:2},
           {name:'Strides',detail:'4 × 20 sec',zone:4}
         ],
-        duration:'50 min', focus:'📍 Volume coming back.' },
+        duration:'50 min', focus:'📍 WHY: First real run post-Tampa. If anything feels off (joint pain, lingering fatigue), this is when it surfaces — and we adjust. The strides at the end are a gentle nervous system wake-up call before next week\'s harder training.' },
 
-      { day:'Friday', type:'hyrox', title:'Light Hyrox Touch', icon:'🎯', zone:2,
-        exercises:[
-          {name:'Wall Balls',detail:'3 × 20 technique',zone:0},
-          {name:'Sled Push Light',detail:'3 × 25m moderate',zone:0},
-          {name:'Farmers',detail:'3 × 40m moderate',zone:0}
-        ],
-        duration:'35 min', focus:'📍 Re-touch stations.' },
+      { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+        exercises:[{name:'Rest',detail:'Recovery.',zone:0}],
+        duration:'—', focus:'📍 WHY: Friday rest stays. Recovery week or not.' },
 
       { day:'Saturday', type:'run', title:'Long Easy', icon:'🛣️', zone:2,
         exercises:[
           {name:'Long Easy Run',detail:'60 min Z2',zone:2}
         ],
-        duration:'60 min', focus:'📍 Back to long run rhythm.' },
+        duration:'60 min', focus:'📍 WHY: 60 minutes Z2 is mid-Phase-1 volume — gentle return to long-run rhythm. Easy effort means recovery continues even while training continues.' },
 
-      { day:'Sunday', type:'rest', title:'Rest', icon:'😴', zone:0,
-        exercises:[{name:'Rest',detail:'Recovery.',zone:0}],
-        duration:'—', focus:'Sunday = rest.' }
+      { day:'Sunday', type:'strength', title:'Light Posterior', icon:'🦵', zone:0,
+        exercises:[
+          {name:'Hip Thrust',detail:'3 × 8 moderate',zone:0},
+          {name:'Single-Leg RDL',detail:'3 × 8/leg moderate',zone:0},
+          {name:'Glute Bridge',detail:'3 × 12',zone:0},
+          {name:'Bird Dog',detail:'3 × 8/side',zone:0}
+        ],
+        duration:'40 min', focus:'📍 WHY: Light posterior re-engagement. Hip thrust drops back to moderate load. Bird dogs work core stability without heavy abdominal load — perfect recovery-week pattern.' }
     ];
   }
 
-  // Wk 2-3 = solo sharpening for Dallas
+  // Wk 2-3 = Solo sharpening for Dallas
+  const isLastFullWeek = (wk === 2);
+
   return [
-    { day:'Monday', type:'strength', title:'Heavy Lower — Maintenance', icon:'🏋️', zone:0,
+    { day:'Monday', type:'run', title:`Long Easy Run — ${isLastFullWeek ? 75 : 60} min`, icon:'🛣️', zone:2,
+      exercises:[
+        {name:'Long Easy',detail:`${isLastFullWeek ? 75 : 60} min Z2 conversational`,zone:2}
+      ],
+      duration:`${isLastFullWeek ? 75 : 60} min`, focus:'📍 WHY: Dallas is solo — longer than doubles for you because every km is yours. The long run rebuilds the endurance base needed to handle 8 × 1km runs back-to-back. 75 minutes Monday + 4 × 1km Saturday = Dallas pacing capacity.' },
+
+    { day:'Tuesday', type:'strength', title:'Heavy Lower — Maintenance', icon:'🏋️', zone:0,
       exercises:[
         {name:'Back Squat',detail:'4 × 4 @ RPE 7-8',zone:0},
         {name:'Romanian Deadlift',detail:'3 × 6 @ RPE 7',zone:0},
-        {name:'Lunges',detail:'3 × 12 moderate',zone:0},
-        {name:'Plank',detail:'3 × 45 sec',zone:0}
+        {name:'Lunges',detail:'3 × 12 moderate DBs',zone:0},
+        {name:'Plank',detail:'3 × 45 sec',zone:0},
+        {name:'Ab Wheel',detail:'3 × 8',zone:0}
       ],
-      duration:'55 min', focus:'📍 Strength maintained, not pushed.' },
-
-    { day:'Tuesday', type:'intervals', title:'Threshold 4 × 1 km', icon:'⚡', zone:4,
-      exercises:[
-        {name:'Warm Up',detail:'10 min easy + strides',zone:2},
-        {name:'Threshold Intervals',detail:'4 × 1 km @ threshold pace. 60 sec rest.',zone:4},
-        {name:'Cool Down',detail:'10 min easy',zone:1}
-      ],
-      duration:'50 min', focus:'📍 Sharpen threshold for solo race.' },
+      duration:'60 min', focus:'📍 WHY: Strength is MAINTAINED at this point, not built. 4×4 at RPE 7-8 keeps your squat patterns sharp without adding fatigue. The work you did in Phase 3 is the ceiling — you can\'t add more in 3 weeks, but you CAN keep it sharp.' },
 
     { day:'Wednesday', type:'strength', title:'Heavy Upper — Maintenance', icon:'💪', zone:0,
       exercises:[
         {name:'Push Press',detail:'4 × 4 @ RPE 7-8',zone:0},
         {name:'Pull-Ups',detail:'3 × 6',zone:0},
         {name:'Bench Press',detail:'3 × 6 @ RPE 7',zone:0},
-        {name:'Row',detail:'3 × 8 heavy',zone:0}
+        {name:'Row',detail:'3 × 8 heavy',zone:0},
+        {name:'Pallof Press',detail:'3 × 10/side',zone:0}
       ],
-      duration:'55 min', focus:'📍 Upper maintenance.' },
+      duration:'60 min', focus:'📍 WHY: Upper maintenance for Dallas. Push press, pull-ups, and rows keep the wall-ball + sled-pull patterns active. Three sessions of maintenance work won\'t move strength up, but they\'ll prevent it from sliding down.' },
 
-    { day:'Thursday', type:'run', title:'Long Easy 75 min', icon:'🛣️', zone:2,
+    { day:'Thursday', type:'hyrox', title:'Hyrox-Specific — Solo Race Weights', icon:'🎯', zone:4,
       exercises:[
-        {name:'Long Easy',detail:'75 min Z2 conversational',zone:2}
-      ],
-      duration:'75 min', focus:'📍 Long run base for Dallas solo.' },
-
-    { day:'Friday', type:'hyrox', title:'Hyrox-Specific Solo', icon:'🎯', zone:4,
-      exercises:[
-        {name:'Wall Balls',detail:'4 × 25 race weight',zone:0},
+        {name:'Wall Balls',detail:'4 × 25 @ race weight (9 kg, 3.05m). Practice solo pacing.',zone:0},
         {name:'Sled Push Race Weight',detail:'4 × 25m @ 152 kg',zone:0},
-        {name:'Sled Pull',detail:'4 × 25m race weight',zone:0},
-        {name:'Burpee BJ',detail:'3 × 20m race cadence',zone:0}
+        {name:'Sled Pull',detail:'4 × 25m @ race weight',zone:0},
+        {name:'Burpee BJ',detail:'3 × 20m race cadence (~2 sec/rep)',zone:0},
+        {name:'Sandbag Lunges',detail:'3 × 20m @ 20 kg',zone:0}
       ],
-      duration:'55 min', focus:'📍 SOLO race weights. Dallas = every station yourself.' },
+      duration:'60 min', focus:'📍 WHY: Tampa was doubles — you only did half the stations. Dallas is solo — every station from start to finish is yours. Solo race-weight practice teaches your body what that workload feels like. Pacing yourself across 8 full stations is a different skill than alternating with a partner.' },
 
-    { day:'Saturday', type:'hyrox', title:'Half Hyrox Solo Sim', icon:'🏁', zone:4,
-      exercises:[
-        {name:'Half Sim',detail:'4 × (1 km + 1 station) at race intensity. SOLO format — no Aidan switching. Practice solo pacing.',zone:4}
-      ],
-      duration:'60 min', focus:'📍 Solo format practice. Dallas is solo.' },
-
-    { day:'Sunday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
+    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
       exercises:[{name:'Rest',detail:'Recovery.',zone:0}],
-      duration:'—', focus:'Sunday = rest.' }
+      duration:'—', focus:'📍 WHY: Friday rest, always.' },
+
+    { day:'Saturday', type:'intervals', title:'Threshold 4 × 1 km', icon:'⚡', zone:4,
+      exercises:[
+        {name:'Warm Up',detail:'10 min easy + 4 strides',zone:2},
+        {name:'Threshold Intervals',detail:'4 × 1 km @ threshold pace. 60 sec rest. Sharpen for Dallas.',zone:4},
+        {name:'Cool Down',detail:'10 min easy',zone:1}
+      ],
+      duration:'55 min', focus:'📍 WHY: Final block of threshold work before Dallas. 4 × 1 km is half of the run portion of Hyrox — perfect rehearsal for race-day pacing. Each rep is a chance to lock in the exact pace you\'ll run on race day.' },
+
+    { day:'Sunday', type:'hyrox', title:'Half Hyrox Solo Sim', icon:'🏁', zone:4,
+      exercises:[
+        {name:'Half Sim',detail:'4 × (1 km + 1 station) at race intensity. SOLO format — no Aidan switching. Practice solo pacing. Last solo sim before Dallas.',zone:4}
+      ],
+      duration:'60 min', focus:'📍 WHY: The last full simulation before Dallas race week. Solo pacing is a learned skill — you have to find the cadence that holds for 8 stations, not just 4. This sim is your final dress rehearsal.' }
   ];
 }
 
 // ===== WEEK 26 — DALLAS RACE WEEK =====
 function getDallasRaceWeek() {
   return [
-    { day:'Monday', type:'strength', title:'Light Activation', icon:'🏋️', zone:0,
+    { day:'Monday', type:'run', title:'Easy Shake-Out Run', icon:'🏃', zone:2,
+      exercises:[
+        {name:'Easy Run',detail:'30-40 min easy Z2. Keep the legs spinning.',zone:2}
+      ],
+      duration:'35 min', focus:'📍 WHY: Race week opens with movement, not training. Easy run = blood flow without fatigue, exactly like Tampa race week.' },
+
+    { day:'Tuesday', type:'strength', title:'Light Lower Activation', icon:'🏋️', zone:0,
       exercises:[
         {name:'Squat',detail:'3 × 3 @ 70% — feel the bar',zone:0},
-        {name:'Push Press',detail:'3 × 3 @ 70%',zone:0}
+        {name:'RDL',detail:'3 × 5 @ 70%',zone:0}
       ],
-      duration:'30 min', focus:'📍 RACE WEEK. Activation only.' },
+      duration:'30 min', focus:'📍 WHY: Light triples wake up the neural drive without depleting glycogen. Race-day legs need to be sharp but full.' },
 
-    { day:'Tuesday', type:'intervals', title:'Sharpening Intervals', icon:'⚡', zone:4,
+    { day:'Wednesday', type:'intervals', title:'Sharpening Intervals', icon:'⚡', zone:4,
       exercises:[
         {name:'Warm Up',detail:'10 min + strides',zone:2},
         {name:'Sharp Intervals',detail:'4 × 400m @ slightly above threshold. 90 sec rest.',zone:4},
         {name:'Cool Down',detail:'10 min easy',zone:1}
       ],
-      duration:'40 min', focus:'📍 Final pre-race sharpening.' },
+      duration:'40 min', focus:'📍 WHY: Last quality stimulus before Dallas Friday. Short 400m reps remind your body what fast feels like with 48 hours of recovery before race day.' },
 
-    { day:'Wednesday', type:'hyrox', title:'Race Plan Walk-Through', icon:'🎯', zone:0,
+    { day:'Thursday', type:'hyrox', title:'Race Plan Walk-Through (Solo)', icon:'🎯', zone:0,
       exercises:[
         {name:'Wall Ball',detail:'2 × 15 technique',zone:0},
         {name:'Sled Push Light',detail:'2 × 25m at 50%',zone:0},
-        {name:'Visualization',detail:'Walk through every station + transition for solo race format.',zone:0}
+        {name:'Visualization',detail:'Walk through every station + transition for solo race format. Plan pacing.',zone:0}
       ],
-      duration:'30 min', focus:'📍 Mental rehearsal for solo race.' },
-
-    { day:'Thursday', type:'rest', title:'Travel + Easy Walk', icon:'😴', zone:1,
-      exercises:[
-        {name:'Easy Walk',detail:'20-30 min easy walk. Hydrate. Carb up.',zone:1}
-      ],
-      duration:'30 min', focus:'📍 Travel day.' },
+      duration:'30 min', focus:'📍 WHY: Solo race plan walk-through is different from doubles — every station, every transition, every fuel stop is yours alone. Mental rehearsal removes Friday decision fatigue.' },
 
     { day:'Friday', type:'hyrox', title:'🏁 DALLAS SOLO — RACE DAY', icon:'🏆', zone:5,
       exercises:[
         {name:'Race Day',detail:'GO RUN YOUR RACE. Pace yourself. Execute every station. This is what 25 weeks built.',zone:5}
       ],
-      duration:'~1:25', focus:'📍 RACE DAY. Dallas Solo. Go execute.' },
+      duration:'~1:25', focus:'📍 WHY: Dallas is your first solo Hyrox. The temptation is to go out hot. The discipline is pacing exactly as you trained — let the people who blow up in the first 30 min come back to you in the second 30 min.' },
 
     { day:'Saturday', type:'rest', title:'Full Recovery', icon:'😴', zone:0,
       exercises:[{name:'Rest',detail:'Celebrate. Eat. Sleep.',zone:0}],
-      duration:'—', focus:'📍 Post-race recovery.' },
+      duration:'—', focus:'📍 WHY: Post-race recovery — same as Tampa. Sleep + food = the whole prescription.' },
 
     { day:'Sunday', type:'rest', title:'Easy Walk', icon:'🚶', zone:1,
       exercises:[{name:'Easy Walk',detail:'30 min easy walk.',zone:1}],
-      duration:'30 min', focus:'📍 Active recovery.' }
+      duration:'30 min', focus:'📍 WHY: Active recovery walk. 25 weeks of work just ended — process the season, enjoy the win.' }
   ];
 }
 
@@ -1765,16 +1813,20 @@ function renderStats() {
 
     <div class="label">Why You're Doing This Program</div>
     <div class="card mb-12" style="padding:14px 16px;border-left:3px solid var(--accent)">
-      <div class="t-sm fw-7 mb-4" style="color:var(--accent)">🏋️ Strength is the spine</div>
-      <div class="t-xs t-muted" style="line-height:1.6">You're racing at Men's Open weights (152 kg sled push, 9 kg wall ball). Most doubles programs undertrain strength. Yours doesn't. 3 strength days per week, all phases.</div>
+      <div class="t-sm fw-7 mb-4" style="color:var(--accent)">🦵 Lower body is the lever</div>
+      <div class="t-xs t-muted" style="line-height:1.6">You're racing at Men's Open weights (152 kg sled push, 20 kg sandbag lunges). Two lower-body days per week — heavy squat-dominant Tuesday + lighter posterior-chain Sunday — is intentional. It's the structural choice that makes heavy stations feel manageable.</div>
     </div>
     <div class="card mb-12" style="padding:14px 16px">
-      <div class="t-sm fw-7 mb-4">🏃 Running is supporting work</div>
-      <div class="t-xs t-muted" style="line-height:1.6">3 non-negotiable runs per week: threshold (Tue), long easy (Thu), sim with Aidan (Sat). Not 5 runs — 3 runs done well.</div>
+      <div class="t-sm fw-7 mb-4">🏃 Running is "faster for longer"</div>
+      <div class="t-xs t-muted" style="line-height:1.6">Monday long run builds aerobic base + VO2 ceiling. Saturday threshold raises race-pace ceiling. Two runs per week, each with a specific purpose, run well.</div>
+    </div>
+    <div class="card mb-12" style="padding:14px 16px">
+      <div class="t-sm fw-7 mb-4">💪 Upper prep for heavier weights</div>
+      <div class="t-xs t-muted" style="line-height:1.6">Men's Open weights are heavier than you're used to. Wednesday heavy upper builds press + pull strength that translates directly to 200 wall ball throws and sled pull speed.</div>
     </div>
     <div class="card mb-24" style="padding:14px 16px">
-      <div class="t-sm fw-7 mb-4">👥 Doubles is its own skill</div>
-      <div class="t-xs t-muted" style="line-height:1.6">Saturday sim with Aidan = the X-factor. Doubles teams who practice switches at station + pacing together always beat teams who don't.</div>
+      <div class="t-sm fw-7 mb-4">🎯 Hyrox-specific on Thursday</div>
+      <div class="t-xs t-muted" style="line-height:1.6">Thursday is where you touch race weights + practice doubles handoffs with Aidan. Light technique in Phase 1 → race weight + doubles practice in Phase 2 → full sims in Phase 3. Friday rest, Sunday posterior — locked in every week.</div>
     </div>
 
     <div class="label">Phase Roadmap</div>
