@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#F5EFE6">
+    <meta name="theme-color" content="#F4F2FB">
     <meta name="description" content="Jo's Hyrox Training — Tampa Doubles + Dallas Solo 2026">
     <title>HYROX — Jo</title>
     <link rel="manifest" href="manifest.json">
@@ -19,11 +19,11 @@ html{height:100%;overflow:hidden;-webkit-text-size-adjust:100%}
 button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
 input,textarea{font-family:inherit;color:inherit}
 :root{
-  --bg:#F5EFE6;--bg2:#EBE4D7;--bg3:#DFD6C4;--surface:#FFFFFF;
-  --text:#1E1A16;--text2:rgba(30,26,22,.6);--text3:rgba(30,26,22,.38);
-  --accent:#E8552E;--accent-dim:rgba(232,85,46,.1);
-  --border:rgba(30,26,22,.08);
-  --green:#5B8C5A;--red:#C94B3C;--blue:#4A6FA5;--orange:#E8552E;
+  --bg:#F4F2FB;--bg2:#E8E4F2;--bg3:#DAD3EB;--surface:#FFFFFF;
+  --text:#1A1530;--text2:rgba(26,21,48,.6);--text3:rgba(26,21,48,.38);
+  --accent:#7C3AED;--accent-dim:rgba(124,58,237,.1);
+  --border:rgba(26,21,48,.08);
+  --green:#10B981;--red:#DC2626;--blue:#3B82F6;--orange:#7C3AED;
   --font:'Inter',system-ui,-apple-system,sans-serif;
   --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px);--nav:64px;
 }
@@ -48,19 +48,19 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px}
 .pill{display:inline-flex;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700}
 .pill-accent{background:var(--accent-dim);color:var(--accent)}
-.pill-green{background:rgba(74,222,128,.12);color:var(--green)}
-.z1{background:rgba(74,111,165,.14);color:#4A6FA5}.z2{background:rgba(74,111,165,.14);color:#4A6FA5}.z3{background:rgba(232,140,46,.14);color:#C97020}.z4{background:rgba(232,85,46,.14);color:var(--accent)}.z5{background:rgba(201,75,60,.14);color:#A33829}
+.pill-green{background:rgba(16,185,129,.12);color:var(--green)}
+.z1{background:rgba(59,130,246,.14);color:#3B82F6}.z2{background:rgba(59,130,246,.14);color:#3B82F6}.z3{background:rgba(6,182,212,.14);color:#0E7490}.z4{background:rgba(124,58,237,.14);color:var(--accent)}.z5{background:rgba(220,38,38,.14);color:#6D28D9}
 .btn{padding:14px 24px;border-radius:12px;font-size:15px;font-weight:700;text-align:center;width:100%;transition:opacity .15s}
 .btn-accent{background:var(--accent);color:#FFF}
 .btn:active{opacity:.8}
 .input{background:#FFF;border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-size:14px;font-weight:600;text-align:center;width:100%;outline:none;font-variant-numeric:tabular-nums}
 .input::placeholder{color:var(--text3);font-weight:400}
-.input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(232,85,46,.1)}
+.input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(124,58,237,.1)}
 .textarea{background:#FFF;border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--text);font-size:14px;width:100%;resize:none;outline:none;min-height:48px}
 .textarea::placeholder{color:var(--text3)}
 .ex-row{padding:14px 0;border-bottom:1px solid var(--border)}
 .ex-row:last-child{border-bottom:none}
-.ex-check{width:28px;height:28px;min-width:28px;border-radius:50%;border:2px solid rgba(30,26,22,.2);display:flex;align-items:center;justify-content:center;transition:all .15s;background:#FFF}
+.ex-check{width:28px;height:28px;min-width:28px;border-radius:50%;border:2px solid rgba(26,21,48,.2);display:flex;align-items:center;justify-content:center;transition:all .15s;background:#FFF}
 .ex-check.done{background:var(--accent);border-color:var(--accent)}
 .ex-check svg{opacity:0;transition:opacity .15s}
 .ex-check.done svg{opacity:1}
@@ -79,7 +79,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px}
 .loading-h{font-size:56px;font-weight:900;color:var(--accent);animation:pulse 1.5s ease infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.modal-overlay{position:fixed;inset:0;background:rgba(30,26,22,.5);z-index:200;display:flex;align-items:flex-end;animation:fadeIn .2s ease}
+.modal-overlay{position:fixed;inset:0;background:rgba(26,21,48,.5);z-index:200;display:flex;align-items:flex-end;animation:fadeIn .2s ease}
 .modal{background:var(--bg);width:100%;border-radius:20px 20px 0 0;padding:24px 20px;padding-bottom:calc(20px + var(--safe-b));max-height:80vh;overflow-y:auto}
 .modal-day{display:flex;justify-content:space-between;align-items:center;padding:14px 12px;border-radius:10px;cursor:pointer;transition:background .15s}
 .modal-day:active{background:var(--bg3)}
@@ -196,11 +196,11 @@ const GOAL_SPLITS = {
 // =============================================
 
 const ZONES = [
-  { zone: 1, name: 'Recovery',     paceRange: '12:07 – 13:02', paceMinSec: 727, paceMaxSec: 782, hrRange: '< 140',     hrMin: 0,   hrMax: 140, color: '#0096FF', description: 'Very easy, conversational. Active recovery days.', feel: 'Could talk in full paragraphs' },
-  { zone: 2, name: 'Easy Aerobic', paceRange: '10:43 – 11:39', paceMinSec: 643, paceMaxSec: 699, hrRange: '140 – 155', hrMin: 140, hrMax: 155, color: '#00D4FF', description: 'Comfortable, sustainable for hours. 80% of your running should live here.', feel: 'Could hold a conversation easily' },
-  { zone: 3, name: 'Tempo',        paceRange: '9:38 – 10:14',  paceMinSec: 578, paceMaxSec: 614, hrRange: '155 – 168', hrMin: 155, hrMax: 168, color: '#FFA500', description: 'Comfortably hard. Sustained tempo.', feel: 'Can speak in short sentences' },
-  { zone: 4, name: 'Threshold',    paceRange: '8:50 – 9:18',   paceMinSec: 530, paceMaxSec: 558, hrRange: '168 – 178', hrMin: 168, hrMax: 178, color: '#FF5032', description: 'Hard. Right at lactate threshold — your Hyrox race-pace target.', feel: 'Can only say a few words' },
-  { zone: 5, name: 'VO2 Max',      paceRange: '7:54 – 8:32',   paceMinSec: 474, paceMaxSec: 512, hrRange: '178 – 192', hrMin: 178, hrMax: 192, color: '#FF3B5C', description: 'Very hard. 3-8 minute intervals.', feel: 'Cannot speak, focused on breathing' }
+  { zone: 1, name: 'Recovery',     paceRange: '12:07 – 13:02', paceMinSec: 727, paceMaxSec: 782, hrRange: '< 140',     hrMin: 0,   hrMax: 140, color: '#3B82F6', description: 'Very easy, conversational. Active recovery days.', feel: 'Could talk in full paragraphs' },
+  { zone: 2, name: 'Easy Aerobic', paceRange: '10:43 – 11:39', paceMinSec: 643, paceMaxSec: 699, hrRange: '140 – 155', hrMin: 140, hrMax: 155, color: '#10B981', description: 'Comfortable, sustainable for hours. 80% of your running should live here.', feel: 'Could hold a conversation easily' },
+  { zone: 3, name: 'Tempo',        paceRange: '9:38 – 10:14',  paceMinSec: 578, paceMaxSec: 614, hrRange: '155 – 168', hrMin: 155, hrMax: 168, color: '#06B6D4', description: 'Comfortably hard. Sustained tempo.', feel: 'Can speak in short sentences' },
+  { zone: 4, name: 'Threshold',    paceRange: '8:50 – 9:18',   paceMinSec: 530, paceMaxSec: 558, hrRange: '168 – 178', hrMin: 168, hrMax: 178, color: '#7C3AED', description: 'Hard. Right at lactate threshold — your Hyrox race-pace target.', feel: 'Can only say a few words' },
+  { zone: 5, name: 'VO2 Max',      paceRange: '7:54 – 8:32',   paceMinSec: 474, paceMaxSec: 512, hrRange: '178 – 192', hrMin: 178, hrMax: 192, color: '#5B21B6', description: 'Very hard. 3-8 minute intervals.', feel: 'Cannot speak, focused on breathing' }
 ];
 
 function getZoneForHR(hr) {
@@ -228,12 +228,12 @@ const WORKOUT_DETAILS = {};
 
 const PHASES = [
   { id: 'baseline',   name: 'Baseline Test',            weeks: [1, 1],    color: '#64748B', emoji: '📋' },
-  { id: 'foundation', name: 'Strength + Aerobic Base',   weeks: [2, 7],    color: '#3B82F6', emoji: '⚡' },
-  { id: 'threshold',  name: 'Threshold + Doubles Dev',   weeks: [8, 13],   color: '#FF8C00', emoji: '🎯' },
-  { id: 'fatigue',    name: 'Perform Under Fatigue',     weeks: [14, 19],  color: '#9333EA', emoji: '💥' },
-  { id: 'tampa',      name: 'Tampa Peak + Taper + Race', weeks: [20, 22],  color: '#FF4D4D', emoji: '🏁' },
-  { id: 'sharpen',    name: 'Solo Sharpening',           weeks: [23, 25],  color: '#E8552E', emoji: '⚔️' },
-  { id: 'dallas',     name: 'Dallas Race Week',          weeks: [26, 26],  color: '#FFE500', emoji: '🔥' }
+  { id: 'foundation', name: 'Strength + Aerobic Base',   weeks: [2, 7],    color: '#10B981', emoji: '⚡' },
+  { id: 'threshold',  name: 'Threshold + Doubles Dev',   weeks: [8, 13],   color: '#3B82F6', emoji: '🎯' },
+  { id: 'fatigue',    name: 'Perform Under Fatigue',     weeks: [14, 19],  color: '#6366F1', emoji: '💥' },
+  { id: 'tampa',      name: 'Tampa Peak + Taper + Race', weeks: [20, 22],  color: '#7C3AED', emoji: '🏁' },
+  { id: 'sharpen',    name: 'Solo Sharpening',           weeks: [23, 25],  color: '#06B6D4', emoji: '⚔️' },
+  { id: 'dallas',     name: 'Dallas Race Week',          weeks: [26, 26],  color: '#5B21B6', emoji: '🔥' }
 ];
 
 function getPhase(weekNum) {
@@ -1274,13 +1274,13 @@ const Charts = {
       const y = padding.top + chartH - barH;
       
       // Bar
-      ctx.fillStyle = d.color || '#E8552E';
+      ctx.fillStyle = d.color || '#7C3AED';
       ctx.beginPath();
       ctx.roundRect(x, y, barWidth, barH, [4, 4, 0, 0]);
       ctx.fill();
       
       // Label
-      ctx.fillStyle = 'rgba(30,26,22,0.45)';
+      ctx.fillStyle = 'rgba(26,21,48,0.45)';
       ctx.font = '10px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(d.label, x + barWidth / 2, h - 5);
@@ -1312,20 +1312,20 @@ const Charts = {
       
       // Bar 1 (Phoenix)
       const h1 = (p.val1 / maxVal) * chartH;
-      ctx.fillStyle = 'rgba(232, 85, 46, 0.55)';
+      ctx.fillStyle = 'rgba(124,58,237, 0.55)';
       ctx.beginPath();
       ctx.roundRect(groupX + groupWidth * 0.1, padding.top + chartH - h1, barWidth, h1, [3, 3, 0, 0]);
       ctx.fill();
 
       // Bar 2 (Houston)
       const h2 = (p.val2 / maxVal) * chartH;
-      ctx.fillStyle = 'rgba(74, 111, 165, 0.5)';
+      ctx.fillStyle = 'rgba(59,130,246, 0.5)';
       ctx.beginPath();
       ctx.roundRect(groupX + groupWidth * 0.1 + barWidth + 2, padding.top + chartH - h2, barWidth, h2, [3, 3, 0, 0]);
       ctx.fill();
 
       // Label
-      ctx.fillStyle = 'rgba(30,26,22,0.45)';
+      ctx.fillStyle = 'rgba(26,21,48,0.45)';
       ctx.font = '9px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(p.label, groupX + groupWidth / 2, h - 5);
@@ -1354,7 +1354,7 @@ const Charts = {
     const range = maxVal - minVal;
     
     // Grid lines
-    ctx.strokeStyle = 'rgba(30,26,22,0.08)';
+    ctx.strokeStyle = 'rgba(26,21,48,0.08)';
     ctx.lineWidth = 1;
     for (let i = 0; i <= 4; i++) {
       const y = padding.top + (i / 4) * chartH;
@@ -1364,14 +1364,14 @@ const Charts = {
       ctx.stroke();
       
       const val = Math.round(maxVal - (i / 4) * range);
-      ctx.fillStyle = 'rgba(30,26,22,0.4)';
+      ctx.fillStyle = 'rgba(26,21,48,0.4)';
       ctx.font = '10px Inter, sans-serif';
       ctx.textAlign = 'right';
       ctx.fillText(val, padding.left - 8, y + 4);
     }
     
     // Line
-    const color = options.color || '#E8552E';
+    const color = options.color || '#7C3AED';
     ctx.strokeStyle = color;
     ctx.lineWidth = 2.5;
     ctx.lineJoin = 'round';
@@ -1421,7 +1421,7 @@ const Charts = {
       ctx.fill();
       
       // Date label
-      ctx.fillStyle = 'rgba(30,26,22,0.4)';
+      ctx.fillStyle = 'rgba(26,21,48,0.4)';
       ctx.font = '9px Inter, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(p.label, x, h - 8);
@@ -1508,7 +1508,7 @@ function renderToday(overrideDate) {
       ${workout.zone ? `<span class="pill z${workout.zone}">Z${workout.zone}</span>` : ''}
       ${phase ? `<span class="pill pill-accent">${phase.name}</span>` : ''}
       ${isComplete ? '<span class="pill pill-green">Done</span>' : ''}
-      ${isSwapped ? '<span class="pill" style="background:rgba(232,85,46,.12);color:var(--accent)">Swapped</span>' : ''}
+      ${isSwapped ? '<span class="pill" style="background:rgba(124,58,237,.12);color:var(--accent)">Swapped</span>' : ''}
     </div>
 
     <!-- Focus -->
@@ -1535,7 +1535,7 @@ function renderToday(overrideDate) {
         return `<div class="ex-row">
           <div class="row" onclick="App.toggleExercise('${dateStr}',${i},this.closest('.ex-row'))">
             <div class="ex-check ${isDone ? 'done' : ''}">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isDone ? '#FFF' : '#1E1A16'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${isDone ? '#FFF' : '#1A1530'}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <div style="flex:1;min-width:0">
               <div class="t-md fw-6" style="${isDone ? 'text-decoration:line-through;opacity:.4' : ''}">${ex.name}</div>
@@ -1672,7 +1672,7 @@ function renderCalendar() {
                   <span class="t-xs t-faint fw-6" style="margin-right:6px">${day.day.substring(0,3).toUpperCase()}</span>
                   <span class="t-xs t-muted">${Dates.formatDate(day.dateStr)}</span>
                   ${today ? '<span class="pill pill-accent" style="margin-left:6px;font-size:9px;padding:1px 6px">TODAY</span>' : ''}
-                  ${swapped ? '<span class="pill" style="margin-left:6px;font-size:9px;padding:1px 6px;background:rgba(232,85,46,.12);color:var(--accent)">SWAP</span>' : ''}
+                  ${swapped ? '<span class="pill" style="margin-left:6px;font-size:9px;padding:1px 6px;background:rgba(124,58,237,.12);color:var(--accent)">SWAP</span>' : ''}
                 </div>
                 <div class="t-xs t-muted">${displayDay.duration}</div>
               </div>
@@ -1889,7 +1889,7 @@ function initDashboardCharts() {
   const canvas = document.getElementById('vo2-chart');
   if (canvas) {
     const points = ATHLETE.vo2maxHistory.map(p => ({ value: p.value, label: Dates.formatDateShort(p.date) }));
-    Charts.lineChart(canvas, points, { color: '#E8552E' });
+    Charts.lineChart(canvas, points, { color: '#7C3AED' });
   }
   // HR over time chart
   const hrCanvas = document.getElementById('hr-chart');
@@ -1962,7 +1962,7 @@ const App = {
     const name = el.querySelector('.t-md');
     check.classList.toggle('done', done);
     check.querySelector('svg').style.opacity = done ? 1 : 0;
-    check.querySelector('svg').setAttribute('stroke', done ? '#FFF' : '#1E1A16');
+    check.querySelector('svg').setAttribute('stroke', done ? '#FFF' : '#1A1530');
     if (name) { name.style.textDecoration = done ? 'line-through' : ''; name.style.opacity = done ? '.4' : ''; }
   },
 
