@@ -78,6 +78,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .set-check.on svg{opacity:1}
 .add-set{width:100%;padding:10px;border-radius:10px;border:1px dashed var(--border);background:transparent;color:var(--text2);font-weight:700;font-size:13px;margin-top:10px}
 .add-set:active{opacity:.6}
+.rm-set{padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-weight:700;font-size:13px;flex:1}
+.rm-set:active{opacity:.6}
 .ex-simple{padding:12px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
 .ex-simple:last-child{border-bottom:none}
 .pill-pr{background:var(--accent);color:#fff}
@@ -310,9 +312,8 @@ function getBaselineWeek() {
     { day:'Wednesday', type:'strength', title:'Upper Baseline — Find 5RMs', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + band pull-aparts + scap activation',zone:0},
-        {name:'Weighted Pull-Ups',detail:'Max strict reps in one set bodyweight. If 8+ BW, find a weighted 5RM with added weight.',zone:0},
-        {name:'Overhead Press 5RM',detail:'Work up to strict 5RM. No leg drive. LOG.',zone:0},
-        {name:'Bench Press 5RM',detail:'Work up to a 5RM. LOG weight + RPE.',zone:0},
+        {name:'Pull-Up Max (bodyweight)',detail:'Max strict bodyweight reps in one set. Upper-pull benchmark.',zone:0},
+        {name:'Overhead Press 5RM',detail:'Work up to a strict 5RM. No leg drive. LOG. Anchors Arnold press + push press loads.',zone:0},
         {name:'Bent-Over Row',detail:'3 × 8 challenging weight (test working load)',zone:0},
         {name:'Face Pulls',detail:'3 × 15 (rear delt baseline)',zone:0},
         {name:'Post-Lift Stretch',detail:'8 min static',zone:0}
@@ -406,7 +407,7 @@ function getFoundationWeek(weekNum) {
       duration:`${longMin} min`, focus:'📍 WHY: Highest-volume aerobic stimulus of the week. Mon = full off-work day, perfect for the longest session. Easy mileage builds the aerobic engine. VO2 max correlates -0.71 with Hyrox finish time. Mon long run with Aidan is the anchor of your running plan.' },
 
     // ===== TUESDAY: Heavy Lower (free day, single) =====
-    { day:'Tuesday', type:'strength', title:'Heavy Lower (Size Volume)', icon:'🏋️', zone:0,
+    { day:'Tuesday', type:'strength', title:'AM Heavy Lower + PM Easy Run', icon:'🏋️', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min bike + dynamic mobility',zone:0},
         {name:'Pre-Lift Activation',detail:'6 min: band pull-aparts × 20, banded glute bridge × 12, lateral walks × 10/side, goblet squat hold × 30 sec',zone:0},
@@ -418,27 +419,31 @@ function getFoundationWeek(weekNum) {
         {name:'Calf Raises',detail:'3 × 15 heavy (sled push power)',zone:0},
         {name:'Plank',detail:'3 × 45 sec, rib cage down, glutes squeezed',zone:0},
         {name:'Ab Wheel Rollout',detail:'3 × 8 from knees, controlled negative',zone:0},
-        {name:'Post-Lift Stretch',detail:'8 min static',zone:0}
+        {name:'Post-Lift Stretch',detail:'8 min static',zone:0},
+        {name:'— PM SESSION — Easy Recovery Run —',detail:'Later in the day (free day, any time)',zone:2},
+        {name:'Easy Recovery Run',detail:`${easyMin} min at conversational pace (Z1-Z2). Slower than slow. HR < 145.`,zone:2}
       ],
-      duration:'~85 min', focus:'📍 WHY: SIZE EMPHASIS. Heavy compound work (squat, RDL) plus hypertrophy volume (leg press, leg curl) hits both strength and size goals. Bulgarian split squats give better single-leg stimulus than lunges. Tuesday is a free off-work day, so take your time and load it heavy.' },
+      duration:`~85 min AM + ${easyMin} min PM`, focus:'📍 WHY: SIZE EMPHASIS. Heavy compound work (squat, RDL) plus hypertrophy volume (leg press, leg curl) hits both strength and size goals. Double day: the PM easy run adds aerobic volume to push toward Aidan-level training load. Tuesday is a free off-work day, so take your time.' },
 
     // ===== WEDNESDAY: Heavy Upper (work day, single) =====
-    { day:'Wednesday', type:'strength', title:'Heavy Upper (Pull-Focused)', icon:'💪', zone:0,
+    { day:'Wednesday', type:'strength', title:'AM Heavy Upper + PM Easy Run', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up',detail:'10 min + band pull-aparts + scap activation',zone:0},
         {name:'Pre-Lift Activation',detail:'6 min: band work + World\'s Greatest Stretch',zone:0},
-        {name:'Weighted Pull-Ups',detail:`${upperScheme} (PRIMARY heavy pull)`,zone:0},
         {name:'Bent-Over Barbell Row',detail:'4 × 6 @ RPE 7-8 (heavy pull volume)',zone:0},
         {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB (unilateral pull)',zone:0},
         {name:'Lat Pulldown',detail:'3 × 10 (hypertrophy pull volume)',zone:0},
+        {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation (delt size + overhead pressing)',zone:0},
+        {name:'Push Press',detail:'3 × 6 moderate explosive (power push, wall ball prep)',zone:0},
+        {name:'Tricep Pushdown',detail:'3 × 12 cable (tricep isolation, pressing lockout + size)',zone:0},
         {name:'Face Pulls',detail:'3 × 15 (rear delts, shoulder health)',zone:0},
-        {name:'DB Bench Press',detail:'3 × 8 (ONE push movement — bilateral)',zone:0},
-        {name:'Push Press',detail:'3 × 6 moderate explosive (second push, wall ball prep)',zone:0},
         {name:'Pallof Press (anti-rotation)',detail:'3 × 10/side, half-kneeling',zone:0},
         {name:'Suitcase Carry',detail:'3 × 40m one heavy DB',zone:0},
-        {name:'Post-Lift Stretch',detail:'8 min static',zone:0}
+        {name:'Post-Lift Stretch',detail:'8 min static',zone:0},
+        {name:'— PM SESSION — Easy Aerobic Run —',detail:'After your 4 PM finish',zone:2},
+        {name:'Easy Aerobic Run',detail:`${easyMin} min @ Z2${phaseWk >= 5 ? '. Add 4 × 20 sec strides at end' : ''}`,zone:2}
       ],
-      duration:'~75 min', focus:'📍 WHY: PULL-FOCUSED upper day. Four pulling movements (pull-ups, bent row, DB row, lat pulldown) plus two push (bench, push press) and face pulls. Heavy back and lat volume means more size and sled-pull strength. Work day, so fit it before 10 AM or after your 4 PM finish.' },
+      duration:`~75 min AM + ${easyMin} min PM`, focus:'📍 WHY: Upper day. Pulls (bent row, single-arm row, lat pulldown) build back size and sled-pull strength. Presses (Arnold, push press) and tricep pushdown add shoulder and arm size. Double day: PM easy run adds aerobic volume. Work day, lift before 10 AM, run after your 4 PM finish.' },
 
     // ===== THURSDAY: Sim with Aidan (far gym, 5 AM) =====
     { day:'Thursday', type:'hyrox', title:'Sim with Aidan', icon:'🏁', zone:4,
@@ -474,6 +479,7 @@ function getFoundationWeek(weekNum) {
         {name:'— POSTERIOR + CORE — after the run (or split to evening) —',detail:'Lighter posterior day',zone:0},
         {name:'Barbell Hip Thrust',detail:hipThrustScheme,zone:0},
         {name:'Single-Leg RDL',detail:'3 × 8/leg moderate-heavy DBs',zone:0},
+        {name:'Leg Curl',detail:'3 × 12 (hamstring isolation + size)',zone:0},
         {name:'Step-Ups',detail:'3 × 10/leg DBs (posterior + Hyrox transfer)',zone:0},
         {name:'Back Extension',detail:'3 × 12 controlled — squeeze glutes at top',zone:0},
         {name:'Side Plank',detail:'3 × 30 sec/side — anti-lateral flexion',zone:0},
@@ -513,7 +519,7 @@ function getBuildWeek(weekNum) {
     { day:'Wednesday', type:'strength', title:'Heavy Upper (Pull) Maintenance', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up + Pre-Lift',detail:'15 min',zone:0},
-        {name:'Weighted Pull-Ups',detail:'3 × 5 weighted (maintenance)',zone:0},
+        {name:'Lat Pulldown',detail:'3 × 8-10 (vertical pull, maintenance)',zone:0},
         {name:'Bent-Over Row',detail:'3 × 5 @ RPE 8',zone:0},
         {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
         {name:'Push Press',detail:'3 × 5 (power-endurance for wall balls)',zone:0},
@@ -669,7 +675,7 @@ function getDallasBuildWeek(weekNum) {
     { day:'Wednesday', type:'strength', title:'Heavy Upper Maintenance', icon:'💪', zone:0,
       exercises:[
         {name:'Warm Up + Pre-Lift',detail:'15 min',zone:0},
-        {name:'Weighted Pull-Ups',detail:'3 × 5 weighted',zone:0},
+        {name:'Lat Pulldown',detail:'3 × 8-10 (vertical pull)',zone:0},
         {name:'Bent-Over Row',detail:'3 × 5',zone:0},
         {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
         {name:'Push Press',detail:'3 × 5',zone:0},
@@ -1652,7 +1658,7 @@ function renderToday(overrideDate) {
         const why = exerciseWhy(ex.name);
         const nameEsc = ex.name.replace(/'/g,"\\'");
         const logSets = Array.isArray(log.sets) ? log.sets : [];
-        const totalRows = Math.max(nSets, logSets.length); // grows with Add Set
+        const totalRows = logSets.length > 0 ? logSets.length : nSets; // add/remove adjust this
         const prev = Storage.getPreviousLog(dateStr, ex.name);
         const prevSetsRaw = Array.isArray(prev?.sets) ? prev.sets : null;
         const prevMax = Storage.getMaxWeight(dateStr, ex.name);
@@ -1685,7 +1691,10 @@ function renderToday(overrideDate) {
           </div>
           ${why ? `<div class="why-box"><span class="why-label">Why this matters</span><span class="why-text">${why}</span></div>` : ''}
           <div class="cset-grid">${rows}</div>
-          <button class="add-set" onclick="App.addSet('${dateStr}',${i},'${nameEsc}',${totalRows})">+ Add Set</button>
+          <div class="row" style="gap:8px;margin-top:10px">
+            ${totalRows > 1 ? `<button class="rm-set" onclick="App.removeSet('${dateStr}',${i},'${nameEsc}',${totalRows})">− Remove</button>` : ''}
+            <button class="add-set" style="flex:1;margin-top:0" onclick="App.addSet('${dateStr}',${i},'${nameEsc}',${totalRows})">+ Add Set</button>
+          </div>
         </div>`;
       }).join('');
       })()}
@@ -2120,6 +2129,14 @@ const App = {
   addSet(dateStr, index, exName, totalRows) {
     const sets = this._collectSets(dateStr, index, totalRows);
     sets.push({ weight: '', reps: '', done: false });
+    Storage.saveExerciseLog(dateStr, index, { sets, exerciseName: exName });
+    this.refresh();
+  },
+
+  removeSet(dateStr, index, exName, totalRows) {
+    if (totalRows <= 1) return;
+    const sets = this._collectSets(dateStr, index, totalRows);
+    sets.pop();
     Storage.saveExerciseLog(dateStr, index, { sets, exerciseName: exName });
     this.refresh();
   },
