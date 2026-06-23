@@ -262,15 +262,14 @@ const WORKOUT_DETAILS = {};
 // - Mileage 18 → 35 mi/wk (vs Aidan 25 → 50)
 // - Long run 60 → 85 min (vs Aidan 75 → 100)
 // - Threshold 4×800m → 6×1km (vs Aidan 8×1km)
-// - Hypertrophy volume on Tue Heavy Lower (Leg Press + Leg Curl added)
+// - Hypertrophy volume on Tue Heavy Lower (Leg Press); hamstrings via leg curl on Sun posterior
 // - Pull-focused Wed Upper (4 pull movements, 2 push)
 // - Bulgarian Split Squats replace lunges
 // - Step-Ups replace glute bridge w/ band
 // - Race weights from Wk 1 (no technique-only phase)
 
 const PHASES = [
-  { id: 'baseline',     name: 'Baseline Test',           weeks: [1, 1],    color: '#64748B', emoji: '📋' },
-  { id: 'foundation',   name: 'Foundation Base',         weeks: [2, 12],   color: '#3B82F6', emoji: '⚡' },
+  { id: 'foundation',   name: 'Foundation Base',         weeks: [1, 12],   color: '#3B82F6', emoji: '⚡' },
   { id: 'build',        name: 'Race-Specific Build',     weeks: [13, 17],  color: '#FF8C00', emoji: '🎯' },
   { id: 'tampa',        name: 'Tampa Race Week',         weeks: [18, 18],  color: '#9333EA', emoji: '🏁' },
   { id: 'dallas_build', name: 'Dallas Solo Build',       weeks: [19, 21],  color: '#E8552E', emoji: '⚔️' },
@@ -283,7 +282,7 @@ function getPhase(weekNum) {
 }
 
 function isDeloadWeek(weekNum) {
-  return [5, 9].includes(weekNum);
+  return [4, 8].includes(weekNum);
 }
 
 // ===== WEEK 1 — BASELINE TESTING =====
@@ -357,7 +356,7 @@ function getBaselineWeek() {
 // ===== PHASE 2 — FOUNDATION (Weeks 2-12) =====
 function getFoundationWeek(weekNum) {
   const isDeload = isDeloadWeek(weekNum);
-  const phaseWk = weekNum - 1; // 1-11
+  const phaseWk = weekNum; // 1-12 (no baseline week; full throttle from Week 1)
 
   const longMin = isDeload ? 45 : Math.min(60 + Math.floor((phaseWk - 1) / 2) * 4, 85);
   const easyMin = isDeload ? 25 : Math.min(25 + Math.floor((phaseWk - 1) / 4) * 5, 40);
@@ -415,7 +414,6 @@ function getFoundationWeek(weekNum) {
         {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
         {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs (single-leg strength + size)',zone:0},
         {name:'Leg Press',detail:'3 × 10 (hypertrophy quad volume)',zone:0},
-        {name:'Leg Curl',detail:'3 × 12 (hypertrophy hamstring)',zone:0},
         {name:'Calf Raises',detail:'3 × 15 heavy (sled push power)',zone:0},
         {name:'Plank',detail:'3 × 45 sec, rib cage down, glutes squeezed',zone:0},
         {name:'Ab Wheel Rollout',detail:'3 × 8 from knees, controlled negative',zone:0},
@@ -510,7 +508,6 @@ function getBuildWeek(weekNum) {
         {name:'Back Squat',detail:`3 × 3 @ ${isDeload ? '70%' : '85-88%'} (maintenance)`,zone:0},
         {name:'Romanian Deadlift',detail:'3 × 5 @ RPE 7-8',zone:0},
         {name:'Bulgarian Split Squat',detail:'3 × 6/leg heavy',zone:0},
-        {name:'Leg Curl',detail:'3 × 10 (size maintenance)',zone:0},
         {name:'Plank + Ab Wheel',detail:'3 × 60 sec + 3 × 10',zone:0},
         {name:'Post-Lift Stretch',detail:'8 min',zone:0}
       ],
@@ -667,7 +664,6 @@ function getDallasBuildWeek(weekNum) {
         {name:'Back Squat',detail:'4 × 4 @ RPE 7-8',zone:0},
         {name:'RDL',detail:'3 × 6 @ RPE 7',zone:0},
         {name:'Bulgarian Split Squat',detail:'3 × 8/leg',zone:0},
-        {name:'Leg Curl',detail:'3 × 12',zone:0},
         {name:'Plank',detail:'3 × 45 sec',zone:0}
       ],
       duration:'~60 min', focus:'📍 WHY: Maintain strength for Dallas. Tuesday is a free day.' },
@@ -847,8 +843,7 @@ function generateTrainingPlan() {
     const deload = isDeloadWeek(week);
 
     let weekDays;
-    if (week === 1)        weekDays = getBaselineWeek();
-    else if (week <= 12)   weekDays = getFoundationWeek(week);
+    if (week <= 12)        weekDays = getFoundationWeek(week);
     else if (week <= 17)   weekDays = getBuildWeek(week);
     else if (week === 18)  weekDays = getTampaRaceWeek();
     else if (week <= 21)   weekDays = getDallasBuildWeek(week);
