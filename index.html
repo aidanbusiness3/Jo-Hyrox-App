@@ -269,8 +269,8 @@ const WORKOUT_DETAILS = {};
 // - Race weights from Wk 1 (no technique-only phase)
 
 const PHASES = [
-  { id: 'base',         name: 'Aerobic + Strength Base', weeks: [1, 12],   color: '#3B82F6', emoji: '⚡' },
-  { id: 'build',        name: 'Race-Specific Build',     weeks: [13, 17],  color: '#FF8C00', emoji: '🎯' },
+  { id: 'base',         name: 'Aerobic + Strength Base', weeks: [1, 8],    color: '#3B82F6', emoji: '⚡' },
+  { id: 'build',        name: 'Race-Specific Build',     weeks: [9, 17],   color: '#FF8C00', emoji: '🎯' },
   { id: 'tampa',        name: 'Tampa Race Week',         weeks: [18, 18],  color: '#9333EA', emoji: '🏁' },
   { id: 'dallas_build', name: 'Dallas Solo Build',       weeks: [19, 21],  color: '#E8552E', emoji: '⚔️' },
   { id: 'dallas',       name: 'Dallas Race Week',        weeks: [22, 22],  color: '#FFE500', emoji: '🔥' },
@@ -408,8 +408,33 @@ function getFoundationWeek(weekNum) {
   }
 
   return [
-    // ===== MONDAY: VO2 Max AM + Stations PM (DOUBLE — mirrors Aidan Wed on Jo's free day) =====
-    { day:'Monday', type:'intervals', title: isDeload ? 'Easy Run (Deload) + Light Stations' : 'AM VO2 Max + PM Station Work', icon: isDeload ? '🏃' : '🔥', zone: isDeload ? 2 : 5,
+    // ===== MONDAY: Heavy Lower AM + Easy Recovery PM (Jo custom lower, Aidan's Mon position) =====
+    { day:'Monday', type:'strength', title:'AM Heavy Lower + PM Easy Recovery', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Front Squat',detail:squatScheme,zone:0},
+        {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
+        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs',zone:0},
+        {name:'Leg Press',detail:'3 × 10',zone:0},
+        {name:'Calf Raises',detail:'3 × 15 heavy',zone:0},
+        {name:`— PM SESSION — Easy Recovery Run ${easyMin} min —`,detail:'Recovery + volume',zone:2},
+        {name:'Easy Recovery Run',detail:`${easyMin} min @ Z1-Z2 conversational. HR < 145. Slower than slow.`,zone:2}
+      ],
+      duration:`AM ~80 min + PM ${easyMin} min`, focus:'📍 WHY: Week opens with heavy lower while the legs are fresh, matches Aidan. Front squat builds the squat/sled push pattern. PM easy run flushes legs and adds aerobic volume on your free day.' },
+
+    // ===== TUESDAY: Heavy Upper (SINGLE, Jo custom upper, Aidan's Tue position) =====
+    { day:'Tuesday', type:'strength', title:'Heavy Upper', icon:'💪', zone:0,
+      exercises:[
+        {name:'Bent-Over Barbell Row',detail:'4 × 6 @ RPE 7-8 (heavy pull volume)',zone:0},
+        {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB',zone:0},
+        {name:'Lat Pulldown',detail:'3 × 10',zone:0},
+        {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation',zone:0},
+        {name:'Push Press',detail:'3 × 6 moderate explosive (wall ball prep)',zone:0},
+        {name:'Tricep Pushdown',detail:'3 × 12 cable',zone:0}
+      ],
+      duration:'~55 min', focus:'📍 WHY: Upper day after heavy lower so legs recover. Pulls (bent row, single-arm row, lat pulldown) plus pushes (Arnold, push press, tricep pushdown). Free day, take your time.' },
+
+    // ===== WEDNESDAY: VO2 Max AM + Hyrox Station Density PM (DOUBLE, matches Aidan Wed) =====
+    { day:'Wednesday', type:'intervals', title: isDeload ? 'Easy Run (Deload) + Light Stations' : 'AM VO2 Max + PM Station Work', icon: isDeload ? '🏃' : '🔥', zone: isDeload ? 2 : 5,
       exercises:[
         {name: isDeload ? '— AM SESSION — Easy Run (Deload) —' : '— AM SESSION — VO2 Max Intervals —',detail:'',zone: isDeload ? 2 : 5},
         {name: isDeload ? 'Easy Run' : 'VO2 Intervals',detail: isDeload ? '35-40 min @ Z2 conversational. Deload week.' : vo2Session, zone: isDeload ? 2 : 5},
@@ -420,32 +445,7 @@ function getFoundationWeek(weekNum) {
         {name:'Farmers Carry',detail:`3 × 40m at ${isDeload ? 'moderate' : phaseWk <= 4 ? 'moderate' : phaseWk <= 8 ? '75% race weight' : 'RACE weight (2 × 24 kg)'}`,zone:0},
         {name:'Wall Ball Finisher',detail: isDeload ? '1 × 20 reps (light)' : '2 × 30 reps (grease the groove, Owen Silver)',zone:0}
       ],
-      duration: isDeload ? 'AM 40 min + PM light' : 'AM 55 min + PM 50 min', focus: isDeload ? '📍 WHY: Deload week. Easy aerobic plus light station technique only.' : '📍 WHY: VO2 max drives the engine, hit it fresh in the AM. PM stations follow Owen Silver wall ball protocol (200-400/wk in small doses, took him 1:04 to 1:00). The one true double-hard day, parked on your free day.' },
-
-    // ===== TUESDAY: Heavy Upper (SINGLE, Jo custom upper, KEPT) =====
-    { day:'Tuesday', type:'strength', title:'Heavy Upper', icon:'💪', zone:0,
-      exercises:[
-        {name:'Bent-Over Barbell Row',detail:'4 × 6 @ RPE 7-8 (heavy pull volume)',zone:0},
-        {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB',zone:0},
-        {name:'Lat Pulldown',detail:'3 × 10',zone:0},
-        {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation',zone:0},
-        {name:'Push Press',detail:'3 × 6 moderate explosive (wall ball prep)',zone:0},
-        {name:'Tricep Pushdown',detail:'3 × 12 cable',zone:0}
-      ],
-      duration:'~55 min', focus:'📍 WHY: Upper day after Mon VO2 + Stations. Free day, take your time. Pulls (bent row, single-arm row, lat pulldown) plus pushes (Arnold, push press, tricep pushdown).' },
-
-    // ===== WEDNESDAY: AM Heavy Lower (Jo custom, KEPT) + PM Easy Recovery =====
-    { day:'Wednesday', type:'strength', title:'AM Heavy Lower + PM Easy Recovery', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Front Squat',detail:squatScheme,zone:0},
-        {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs',zone:0},
-        {name:'Leg Press',detail:'3 × 10',zone:0},
-        {name:'Calf Raises',detail:'3 × 15 heavy',zone:0},
-        {name:`— PM SESSION — Easy Recovery Run ${easyMin} min —`,detail:'After your 4 PM finish',zone:2},
-        {name:'Easy Recovery Run',detail:`${easyMin} min @ Z1-Z2 conversational. HR < 145. Slower than slow.`,zone:2}
-      ],
-      duration:`AM ~80 min + PM ${easyMin} min`, focus:'📍 WHY: Heavy lower mid-week. Front squat builds the squat/sled push pattern. PM easy run flushes legs. Work day, lift before 10 AM, run after your 4 PM finish.' },
+      duration: isDeload ? 'AM 40 min + PM light' : 'AM 55 min + PM 50 min', focus: isDeload ? '📍 WHY: Deload week. Easy aerobic plus light station technique only.' : '📍 WHY: VO2 max drives the engine, hit it fresh in the AM. PM stations follow Owen Silver wall ball protocol (200-400/wk in small doses, took him 1:04 to 1:00). The one true double-hard day.' },
 
     // ===== THURSDAY: Sim (rotates 4-week cycle) =====
     { day:'Thursday', type:'hyrox', title:`Sim — ${simTitle}`, icon:'🏁', zone:4,
@@ -810,8 +810,8 @@ function generateTrainingPlan() {
     const deload = isDeloadWeek(week);
 
     let weekDays;
-    if (week <= 12)        weekDays = getFoundationWeek(week);
-    else if (week <= 17)   weekDays = getBuildWeek(week);
+    if (week <= 8)         weekDays = getFoundationWeek(week + 4);
+    else if (week <= 17)   weekDays = getBuildWeek(Math.min(week + 4, 17));
     else if (week === 18)  weekDays = getTampaRaceWeek();
     else if (week <= 21)   weekDays = getDallasBuildWeek(week);
     else if (week === 22)  weekDays = getDallasRaceWeek();
