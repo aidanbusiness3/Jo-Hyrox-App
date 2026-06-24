@@ -269,7 +269,7 @@ const WORKOUT_DETAILS = {};
 // - Race weights from Wk 1 (no technique-only phase)
 
 const PHASES = [
-  { id: 'foundation',   name: 'Foundation Base',         weeks: [1, 12],   color: '#3B82F6', emoji: '⚡' },
+  { id: 'base',         name: 'Aerobic + Strength Base', weeks: [1, 12],   color: '#3B82F6', emoji: '⚡' },
   { id: 'build',        name: 'Race-Specific Build',     weeks: [13, 17],  color: '#FF8C00', emoji: '🎯' },
   { id: 'tampa',        name: 'Tampa Race Week',         weeks: [18, 18],  color: '#9333EA', emoji: '🏁' },
   { id: 'dallas_build', name: 'Dallas Solo Build',       weeks: [19, 21],  color: '#E8552E', emoji: '⚔️' },
@@ -339,21 +339,38 @@ function getBaselineWeek() {
 // ===== PHASE 2 — FOUNDATION (Weeks 2-12) =====
 function getFoundationWeek(weekNum) {
   const isDeload = isDeloadWeek(weekNum);
-  const phaseWk = weekNum; // 1-12 (no baseline week; full throttle from Week 1)
+  const phaseWk = weekNum; // 1-12
 
-  const longMin = isDeload ? 45 : Math.min(60 + Math.floor((phaseWk - 1) / 2) * 4, 85);
+  // Mileage / volume progression (matches Aidan)
+  const longMin = isDeload ? 45 : Math.min(55 + Math.floor((phaseWk - 1) / 3) * 5, 85);
   const easyMin = isDeload ? 25 : Math.min(25 + Math.floor((phaseWk - 1) / 4) * 5, 40);
 
-  // Threshold progression
+  // Threshold (Sat) — Owen Silver progression, matches Aidan
   let thresholdSession;
-  if (isDeload) thresholdSession = '20 min easy run + 4 strides (deload — no quality)';
+  if (isDeload) thresholdSession = '20 min easy run + 4 strides (deload week)';
   else if (phaseWk <= 2) thresholdSession = '4 × 800m @ threshold pace, 90 sec easy jog rest';
   else if (phaseWk <= 4) thresholdSession = '5 × 800m @ threshold pace, 90 sec rest';
   else if (phaseWk <= 6) thresholdSession = '4 × 1km @ threshold pace, 60 sec rest';
   else if (phaseWk <= 8) thresholdSession = '5 × 1km @ threshold pace, 60 sec rest';
-  else thresholdSession = '6 × 1km @ threshold pace, 60 sec rest';
+  else if (phaseWk <= 10) thresholdSession = '6 × 1km @ threshold pace, 60 sec rest';
+  else if (phaseWk === 11) thresholdSession = '7 × 1km @ threshold pace, 60 sec rest (step toward Owen Silver benchmark)';
+  else thresholdSession = '8 × 1km @ threshold pace, 60 sec rest (Owen Silver elite benchmark, peak test)';
 
-  // Strength scheme
+  // VO2 (Wed AM) — Norwegian / race-pace alternation from Wk 3, matches Aidan
+  let vo2Session;
+  if (isDeload) {
+    vo2Session = 'Easy run 35-40 min Z2 (no VO2 deload week)';
+  } else if (phaseWk <= 2) {
+    vo2Session = '4 × 3 min @ vVO2 pace, 2 min easy jog (build-in)';
+  } else if (phaseWk % 2 === 1) {
+    const reps = phaseWk <= 6 ? '4 × 4 min' : phaseWk <= 10 ? '5 × 4 min' : '4 × 5 min';
+    vo2Session = `NORWEGIAN: ${reps} @ vVO2 pace, 3 min easy jog. Raise the ceiling, cannot speak between reps.`;
+  } else {
+    const reps = phaseWk <= 6 ? '5 × 1km' : '6 × 1km';
+    vo2Session = `RACE-PACE: ${reps} @ your Hyrox 1km target pace, 60-90 sec rest. Race-rep practice at the exact distance.`;
+  }
+
+  // Strength schemes (Jo's custom lift loading, untouched)
   let squatScheme;
   if (isDeload) squatScheme = '3 × 5 @ 70% (deload, technique focus)';
   else if (phaseWk <= 3) squatScheme = '5 × 5 @ RPE 7-8 (75-80% of estimated 1RM)';
@@ -362,15 +379,9 @@ function getFoundationWeek(weekNum) {
 
   let hingeScheme;
   if (isDeload) hingeScheme = '3 × 5 @ RPE 6 (deload)';
-  else if (phaseWk <= 3) hingeScheme = '4 × 6 @ RPE 7 (working weight from Wk 1 test)';
+  else if (phaseWk <= 3) hingeScheme = '4 × 6 @ RPE 7 (working weight)';
   else if (phaseWk <= 7) hingeScheme = '4 × 6 @ RPE 7-8 (add 5-10 lb when easy)';
   else hingeScheme = '4 × 5 @ RPE 8 (heavier triples)';
-
-  let upperScheme;
-  if (isDeload) upperScheme = '3 × 5 @ 70% (deload)';
-  else if (phaseWk <= 3) upperScheme = '5 × 5 @ RPE 7-8';
-  else if (phaseWk <= 7) upperScheme = '5 × 5 @ RPE 8';
-  else upperScheme = '4 × 4 @ RPE 8-9';
 
   let hipThrustScheme;
   if (isDeload) hipThrustScheme = '3 × 6 @ RPE 6 (deload)';
@@ -378,76 +389,101 @@ function getFoundationWeek(weekNum) {
   else if (phaseWk <= 7) hipThrustScheme = '4 × 6 @ RPE 8 (heavier loads)';
   else hipThrustScheme = '4 × 5 @ RPE 8-9 (heaviest of phase)';
 
-  return [
-    // ===== MONDAY: Long Run (SINGLE) =====
-    { day:'Monday', type:'run', title:`Long Easy Run — ${longMin} min`, icon:'🛣️', zone:2,
-      exercises:[
-        {name:'Long Easy Run',detail:`${longMin} min at conversational pace (Z2). HR < 155, conversational. Slowest pace IS the workout. Run with Aidan if possible.`,zone:2},
-        {name:'Post-Run Static Stretch',detail:'8 min: pigeon + couch stretch + calf + hamstring + lat',zone:0}
-      ],
-      duration:`${longMin} min`, focus:'📍 WHY: Highest-volume aerobic stimulus of the week. Mon = full off-work day, perfect for the longest session. Easy mileage builds the aerobic engine. VO2 max correlates -0.71 with Hyrox finish time. Mon long run with Aidan is the anchor of your running plan.' },
+  // Thu sim rotation (matches Aidan)
+  const rotIdx = (weekNum - 1) % 4;
+  let simTitle, simDetail;
+  if (rotIdx === 0) {
+    simTitle = 'Mini Sim';
+    simDetail = '4 × (1 km @ race pace + 1 station). Stations rotate: 25 wall balls, 25m sled push race weight, 20m sandbag lunge, 30 sec burpees. Moderate intensity.';
+  } else if (rotIdx === 1) {
+    simTitle = 'Compromised Intervals';
+    simDetail = '5 × (1 km @ threshold + 30 wall balls @ 9 kg), 60 sec rest. Run TIRED, closest stimulus to race day.';
+  } else if (rotIdx === 2) {
+    simTitle = 'Half Hyrox Sim';
+    simDetail = 'Half Hyrox: 4 × 1 km + 4 stations at 85% race intensity. Time it. Treat as race rehearsal.';
+  } else {
+    const target = weekNum === 4 ? 150 : (weekNum === 8 ? 175 : 200);
+    simTitle = 'James Kelly EMOM Benchmark';
+    simDetail = `Every 3 min × 8 rounds: 400m run + MAX burpees with remaining time. Total burpees = score. Target this week: ${target}+. (Kelly's PR: 247)`;
+  }
 
-    // ===== TUESDAY: Heavy Upper (free day) =====
-    { day:'Tuesday', type:'strength', title:'AM Heavy Upper + PM Easy Run', icon:'💪', zone:0,
+  return [
+    // ===== MONDAY: VO2 Max AM + Stations PM (DOUBLE — mirrors Aidan Wed on Jo's free day) =====
+    { day:'Monday', type:'intervals', title: isDeload ? 'Easy Run (Deload) + Light Stations' : 'AM VO2 Max + PM Station Work', icon: isDeload ? '🏃' : '🔥', zone: isDeload ? 2 : 5,
+      exercises:[
+        {name: isDeload ? '— AM SESSION — Easy Run (Deload) —' : '— AM SESSION — VO2 Max Intervals —',detail:'',zone: isDeload ? 2 : 5},
+        {name: isDeload ? 'Easy Run' : 'VO2 Intervals',detail: isDeload ? '35-40 min @ Z2 conversational. Deload week.' : vo2Session, zone: isDeload ? 2 : 5},
+        {name:'— PM SESSION — Hyrox Station Density —',detail: isDeload ? 'Technique only, no race weights' : 'Owen Silver wall ball protocol', zone:3},
+        {name:'Wall Ball',detail:`4 × 25 reps @ 9 kg, 3.05m target, 60 sec rest${isDeload ? ' (deload: technique, light)' : ''}`,zone:0},
+        {name:'Sled Push',detail:`4 × 25m at ${isDeload ? 'light technique weight' : phaseWk <= 4 ? '50% race weight' : phaseWk <= 8 ? '70% race weight' : 'RACE weight (152 kg)'}`,zone:0},
+        {name:'Burpee Broad Jump',detail:'3 × 10m steady cadence (~2 sec/rep, not sprints)',zone:0},
+        {name:'Farmers Carry',detail:`3 × 40m at ${isDeload ? 'moderate' : phaseWk <= 4 ? 'moderate' : phaseWk <= 8 ? '75% race weight' : 'RACE weight (2 × 24 kg)'}`,zone:0},
+        {name:'Wall Ball Finisher',detail: isDeload ? '1 × 20 reps (light)' : '2 × 30 reps (grease the groove, Owen Silver)',zone:0}
+      ],
+      duration: isDeload ? 'AM 40 min + PM light' : 'AM 55 min + PM 50 min', focus: isDeload ? '📍 WHY: Deload week. Easy aerobic plus light station technique only.' : '📍 WHY: VO2 max drives the engine, hit it fresh in the AM. PM stations follow Owen Silver wall ball protocol (200-400/wk in small doses, took him 1:04 to 1:00). The one true double-hard day, parked on your free day.' },
+
+    // ===== TUESDAY: Heavy Upper (SINGLE, Jo custom upper, KEPT) =====
+    { day:'Tuesday', type:'strength', title:'Heavy Upper', icon:'💪', zone:0,
       exercises:[
         {name:'Bent-Over Barbell Row',detail:'4 × 6 @ RPE 7-8 (heavy pull volume)',zone:0},
-        {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB (unilateral pull)',zone:0},
-        {name:'Lat Pulldown',detail:'3 × 10 (hypertrophy pull volume)',zone:0},
-        {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation (delt size + overhead pressing)',zone:0},
-        {name:'Push Press',detail:'3 × 6 moderate explosive (power push, wall ball prep)',zone:0},
-        {name:'Tricep Pushdown',detail:'3 × 12 cable (tricep isolation, pressing lockout + size)',zone:0},
-        {name:'— PM SESSION — Easy Aerobic Run —',detail:'Later in the day (free day, any time)',zone:2},
-        {name:'Easy Aerobic Run',detail:`${easyMin} min @ Z2${phaseWk >= 5 ? '. Add 4 × 20 sec strides at end' : ''}`,zone:2}
+        {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB',zone:0},
+        {name:'Lat Pulldown',detail:'3 × 10',zone:0},
+        {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation',zone:0},
+        {name:'Push Press',detail:'3 × 6 moderate explosive (wall ball prep)',zone:0},
+        {name:'Tricep Pushdown',detail:'3 × 12 cable',zone:0}
       ],
-      duration:`~75 min AM + ${easyMin} min PM`, focus:'📍 WHY: Upper day. Pulls (bent row, single-arm row, lat pulldown) build back size and sled-pull strength. Presses (Arnold, push press) and tricep pushdown add shoulder and arm size. Double day: PM easy run adds aerobic volume. Tuesday is a free off-work day, so take your time.' },
+      duration:'~55 min', focus:'📍 WHY: Upper day after Mon VO2 + Stations. Free day, take your time. Pulls (bent row, single-arm row, lat pulldown) plus pushes (Arnold, push press, tricep pushdown).' },
 
-    // ===== WEDNESDAY: Heavy Lower (work day) =====
-    { day:'Wednesday', type:'strength', title:'AM Heavy Lower + PM Easy Run', icon:'🏋️', zone:0,
+    // ===== WEDNESDAY: AM Heavy Lower (Jo custom, KEPT) + PM Easy Recovery =====
+    { day:'Wednesday', type:'strength', title:'AM Heavy Lower + PM Easy Recovery', icon:'🏋️', zone:0,
       exercises:[
         {name:'Front Squat',detail:squatScheme,zone:0},
         {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs (single-leg strength + size)',zone:0},
-        {name:'Leg Press',detail:'3 × 10 (hypertrophy quad volume)',zone:0},
-        {name:'Calf Raises',detail:'3 × 15 heavy (sled push power)',zone:0},
-        {name:'— PM SESSION — Easy Recovery Run —',detail:'After your 4 PM finish',zone:2},
-        {name:'Easy Recovery Run',detail:`${easyMin} min at conversational pace (Z1-Z2). Slower than slow. HR < 145.`,zone:2}
+        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs',zone:0},
+        {name:'Leg Press',detail:'3 × 10',zone:0},
+        {name:'Calf Raises',detail:'3 × 15 heavy',zone:0},
+        {name:`— PM SESSION — Easy Recovery Run ${easyMin} min —`,detail:'After your 4 PM finish',zone:2},
+        {name:'Easy Recovery Run',detail:`${easyMin} min @ Z1-Z2 conversational. HR < 145. Slower than slow.`,zone:2}
       ],
-      duration:`~85 min AM + ${easyMin} min PM`, focus:'📍 WHY: SIZE EMPHASIS. Heavy compound work (front squat, RDL) plus hypertrophy volume (leg press) hits both strength and size goals. Double day: the PM easy run adds aerobic volume. Work day, lift before 10 AM, run after your 4 PM finish.' },
+      duration:`AM ~80 min + PM ${easyMin} min`, focus:'📍 WHY: Heavy lower mid-week. Front squat builds the squat/sled push pattern. PM easy run flushes legs. Work day, lift before 10 AM, run after your 4 PM finish.' },
 
-    // ===== THURSDAY: Sim with Aidan (far gym, 5 AM) =====
-    { day:'Thursday', type:'hyrox', title:'Sim with Aidan', icon:'🏁', zone:4,
+    // ===== THURSDAY: Sim (rotates 4-week cycle) =====
+    { day:'Thursday', type:'hyrox', title:`Sim — ${simTitle}`, icon:'🏁', zone:4,
       exercises:[
-        {name:'Hyrox Sim',detail: phaseWk <= 4 ? '4 × (1km @ race pace + 1 station). Moderate intensity, build toward race format. Stations rotate: wall ball, sled push, sled pull, sandbag lunge.' :
-                                  phaseWk <= 8 ? '6 × (1km + station rotation) WITH Aidan. Increasing intensity. Practice switches. Rotate all stations at race weight.' :
-                                  'Half Hyrox doubles: 4 × 1km + 4 stations at race intensity with Aidan. Practice switches every 100-200m.', zone:4},
-        {name:'Race-Weight Station Touch',detail:'Finisher (this is the far-gym day): Sled Push 2 × 25m + Sled Pull 2 × 25m + Wall Ball 2 × 25 @ 9 kg. Lock in race-weight feel.',zone:0},
+        {name:simTitle,detail:simDetail,zone:4}
       ],
-      duration:'75-90 min', focus:'📍 WHY: The sim is the X-factor of doubles racing: practice switches and pacing with Aidan. This is also your one far-gym day, so the heavy sled work lives here. Go at 5 AM and finish by 8, well before the 10 AM shift.' },
+      duration:'70-90 min', focus:`📍 WHY: Race format under fatigue is the closest stimulus to race day. 4-week rotation prevents plateau. Far-gym day: 5 AM start, done by 8 before the shift.` },
 
-    // ===== FRIDAY: REST =====
-    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
-      exercises:[{name:'Rest',detail:'Full training rest. Sleep 8+ hours. Hydrate. Eat. Daily mobility 10-15 min.',zone:0}],
-      duration:'—', focus:'📍 WHY: Friday rest, locked. The hardest stretch (Tue lower, Wed upper, Thu sim) demands a full recovery day. You work 10-4 today, so a mental break from training is real recovery before Saturday threshold.' },
-
-    // ===== SATURDAY: Threshold Intervals (work day, single) =====
-    { day:'Saturday', type:'intervals', title:'Threshold Intervals', icon:'⚡', zone:4,
+    // ===== FRIDAY: Rest + Mobility =====
+    { day:'Friday', type:'rest', title:'Rest + Mobility Flow', icon:'😴', zone:0,
       exercises:[
-        {name:'Threshold Intervals',detail:thresholdSession,zone:4},
+        {name:'Rest',detail:'Full training rest. Sleep 8+ hours. Hydrate. Eat. Optional 20-30 min easy walk.',zone:0},
+        {name:'Mobility Flow (20-30 min)',detail:'5 min foam roll (IT bands, quads, glutes, lats, t-spine) + 5 min lacrosse ball (pec minor, glute medius, plantar fascia) + 15-20 min flow (pigeon, couch stretch, frog, seated forward fold, thread the needle, banded hip distraction)',zone:0}
       ],
-      duration:'~55 min', focus:'📍 WHY: Threshold is "the anchor" that raises sustainable race pace. Friday rest gives this fresh legs for a quality session. Every Hyrox run is 1km, so these reps are sport-specific. Work day, so run it before 10 AM or after 4 PM.' },
+      duration:'Rest + 25 min mobility', focus:'📍 WHY: Rest sits between Thursday sim and Saturday threshold, so Sat quality run gets fresh legs. Deep mobility day. Flexibility is a known weak point.' },
 
-    // ===== SUNDAY: Easy Run + Posterior + Core (single) =====
-    { day:'Sunday', type:'run', title:'Easy Run + Posterior', icon:'🦵', zone:2,
+    // ===== SATURDAY: Threshold Intervals (SINGLE) =====
+    { day:'Saturday', type:'intervals', title: isDeload ? 'Easy Run (Deload)' : 'Threshold Intervals', icon: isDeload ? '🏃' : '⚡', zone: isDeload ? 2 : 4,
+      exercises: isDeload ? [
+        {name:'Easy Run',detail:'30-40 min @ Z2 conversational. Deload week.',zone:2}
+      ] : [
+        {name:'Threshold Intervals',detail:thresholdSession,zone:4}
+      ],
+      duration: isDeload ? '40 min' : '55 min', focus: isDeload ? '📍 WHY: Deload week. Easy aerobic only.' : '📍 WHY: Isolated behind Friday rest so legs are fresh. Threshold is the anchor of every elite Hyrox plan, most leveraged session for race pace. Work day, run before 10 AM or after 4 PM.' },
+
+    // ===== SUNDAY: Easy Long Run + Posterior (DOUBLE, Jo custom posterior) =====
+    { day:'Sunday', type:'run', title:`Easy Long Run — ${longMin} min + Posterior`, icon:'🛣️', zone:2,
       exercises:[
-        {name:`Easy Aerobic Run — ${easyMin} min`,detail:`${easyMin} min at conversational pace (Z2). HR < 150. Easy aerobic volume, run with Aidan if possible.`,zone:2},
-        {name:'— POSTERIOR + CORE — after the run (or split to evening) —',detail:'Lighter posterior day',zone:0},
+        {name:'— SESSION 1 — Easy Long Run —',detail:'Main aerobic volume of the week',zone:2},
+        {name:'Easy Long Run',detail:`${longMin} min @ Z2 conversational. HR < 155. FINISH with 4-6 × 20 sec strides at ~mile pace, walk-back recovery. Strides improve running economy 2-4% for free (Yamamoto 2008).`,zone:2},
+        {name:'— SESSION 2 — Posterior —',detail:'Jo custom posterior',zone:0},
         {name:'Barbell Hip Thrust',detail:hipThrustScheme,zone:0},
         {name:'Single-Leg RDL',detail:'3 × 8/leg moderate-heavy DBs',zone:0},
         {name:'Leg Curl',detail:'3 × 12 (hamstring isolation + size)',zone:0},
-        {name:'Step-Ups',detail:'3 × 10/leg DBs (posterior + Hyrox transfer)',zone:0},
-        {name:'Back Extension',detail:'3 × 12 controlled — squeeze glutes at top',zone:0},
+        {name:'Step-Ups',detail:'3 × 10/leg DBs',zone:0},
+        {name:'Back Extension',detail:'3 × 12 controlled',zone:0}
       ],
-      duration:`${easyMin} min run + ~50 min lift`, focus:'📍 WHY: Two posterior days per week (Tue heavy, Sun lighter) build real glute and hamstring size, and the easy run adds aerobic volume. If two sessions on a work day is a lot, run early and lift after 4, or keep the run a short easy jog.' },
+      duration:`Run ${longMin} min + ~50 min posterior`, focus:'📍 WHY: The week\'s main easy aerobic volume + your posterior day. Long run with Aidan if possible. Split posterior to evening if needed.' }
   ];
 }
 
