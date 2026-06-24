@@ -387,21 +387,8 @@ function getFoundationWeek(weekNum) {
       ],
       duration:`${longMin} min`, focus:'📍 WHY: Highest-volume aerobic stimulus of the week. Mon = full off-work day, perfect for the longest session. Easy mileage builds the aerobic engine. VO2 max correlates -0.71 with Hyrox finish time. Mon long run with Aidan is the anchor of your running plan.' },
 
-    // ===== TUESDAY: Heavy Lower (free day, single) =====
-    { day:'Tuesday', type:'strength', title:'AM Heavy Lower + PM Easy Run', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Front Squat',detail:squatScheme,zone:0},
-        {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs (single-leg strength + size)',zone:0},
-        {name:'Leg Press',detail:'3 × 10 (hypertrophy quad volume)',zone:0},
-        {name:'Calf Raises',detail:'3 × 15 heavy (sled push power)',zone:0},
-        {name:'— PM SESSION — Easy Recovery Run —',detail:'Later in the day (free day, any time)',zone:2},
-        {name:'Easy Recovery Run',detail:`${easyMin} min at conversational pace (Z1-Z2). Slower than slow. HR < 145.`,zone:2}
-      ],
-      duration:`~85 min AM + ${easyMin} min PM`, focus:'📍 WHY: SIZE EMPHASIS. Heavy compound work (squat, RDL) plus hypertrophy volume (leg press) hits both strength and size goals. Double day: the PM easy run adds aerobic volume to push toward Aidan-level training load. Tuesday is a free off-work day, so take your time.' },
-
-    // ===== WEDNESDAY: Heavy Upper (work day, single) =====
-    { day:'Wednesday', type:'strength', title:'AM Heavy Upper + PM Easy Run', icon:'💪', zone:0,
+    // ===== TUESDAY: Heavy Upper (free day) =====
+    { day:'Tuesday', type:'strength', title:'AM Heavy Upper + PM Easy Run', icon:'💪', zone:0,
       exercises:[
         {name:'Bent-Over Barbell Row',detail:'4 × 6 @ RPE 7-8 (heavy pull volume)',zone:0},
         {name:'Single-Arm DB Row',detail:'4 × 8/side heavy DB (unilateral pull)',zone:0},
@@ -409,10 +396,23 @@ function getFoundationWeek(weekNum) {
         {name:'Arnold Press',detail:'3 × 10 seated DBs, full rotation (delt size + overhead pressing)',zone:0},
         {name:'Push Press',detail:'3 × 6 moderate explosive (power push, wall ball prep)',zone:0},
         {name:'Tricep Pushdown',detail:'3 × 12 cable (tricep isolation, pressing lockout + size)',zone:0},
-        {name:'— PM SESSION — Easy Aerobic Run —',detail:'After your 4 PM finish',zone:2},
+        {name:'— PM SESSION — Easy Aerobic Run —',detail:'Later in the day (free day, any time)',zone:2},
         {name:'Easy Aerobic Run',detail:`${easyMin} min @ Z2${phaseWk >= 5 ? '. Add 4 × 20 sec strides at end' : ''}`,zone:2}
       ],
-      duration:`~75 min AM + ${easyMin} min PM`, focus:'📍 WHY: Upper day. Pulls (bent row, single-arm row, lat pulldown) build back size and sled-pull strength. Presses (Arnold, push press) and tricep pushdown add shoulder and arm size. Double day: PM easy run adds aerobic volume. Work day, lift before 10 AM, run after your 4 PM finish.' },
+      duration:`~75 min AM + ${easyMin} min PM`, focus:'📍 WHY: Upper day. Pulls (bent row, single-arm row, lat pulldown) build back size and sled-pull strength. Presses (Arnold, push press) and tricep pushdown add shoulder and arm size. Double day: PM easy run adds aerobic volume. Tuesday is a free off-work day, so take your time.' },
+
+    // ===== WEDNESDAY: Heavy Lower (work day) =====
+    { day:'Wednesday', type:'strength', title:'AM Heavy Lower + PM Easy Run', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Front Squat',detail:squatScheme,zone:0},
+        {name:'Romanian Deadlift',detail:hingeScheme,zone:0},
+        {name:'Bulgarian Split Squat',detail:'3 × 8/leg heavy DBs (single-leg strength + size)',zone:0},
+        {name:'Leg Press',detail:'3 × 10 (hypertrophy quad volume)',zone:0},
+        {name:'Calf Raises',detail:'3 × 15 heavy (sled push power)',zone:0},
+        {name:'— PM SESSION — Easy Recovery Run —',detail:'After your 4 PM finish',zone:2},
+        {name:'Easy Recovery Run',detail:`${easyMin} min at conversational pace (Z1-Z2). Slower than slow. HR < 145.`,zone:2}
+      ],
+      duration:`~85 min AM + ${easyMin} min PM`, focus:'📍 WHY: SIZE EMPHASIS. Heavy compound work (front squat, RDL) plus hypertrophy volume (leg press) hits both strength and size goals. Double day: the PM easy run adds aerobic volume. Work day, lift before 10 AM, run after your 4 PM finish.' },
 
     // ===== THURSDAY: Sim with Aidan (far gym, 5 AM) =====
     { day:'Thursday', type:'hyrox', title:'Sim with Aidan', icon:'🏁', zone:4,
@@ -463,22 +463,22 @@ function getBuildWeek(weekNum) {
       ],
       duration:'80 min', focus:'📍 WHY: Race-day gear-shift practice. Surges teach pace-change skill needed on runs between stations.' },
 
-    { day:'Tuesday', type:'strength', title:'Heavy Lower (Maintenance)', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Front Squat',detail:`3 × 3 @ ${isDeload ? '70%' : '85-88%'} (maintenance)`,zone:0},
-        {name:'Romanian Deadlift',detail:'3 × 5 @ RPE 7-8',zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 6/leg heavy',zone:0},
-      ],
-      duration:'~70 min', focus:'📍 WHY: Strength BUILT in Foundation, MAINTAINED in Build. Energy shifts to race-specific work. Tuesday is a free day, so this is unhurried.' },
-
-    { day:'Wednesday', type:'strength', title:'Heavy Upper (Pull) Maintenance', icon:'💪', zone:0,
+    { day:'Tuesday', type:'strength', title:'Heavy Upper (Pull) Maintenance', icon:'💪', zone:0,
       exercises:[
         {name:'Lat Pulldown',detail:'3 × 8-10 (vertical pull, maintenance)',zone:0},
         {name:'Bent-Over Row',detail:'3 × 5 @ RPE 8',zone:0},
         {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
         {name:'Push Press',detail:'3 × 5 (power-endurance for wall balls)',zone:0},
       ],
-      duration:'~65 min', focus:'📍 WHY: Pull-focused maintenance. Strides keep speed alive. Work day, fit it before 10 AM or after 4 PM.' },
+      duration:'~65 min', focus:'📍 WHY: Pull-focused maintenance. Tuesday is a free day, so this is unhurried.' },
+
+    { day:'Wednesday', type:'strength', title:'Heavy Lower (Maintenance)', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Front Squat',detail:`3 × 3 @ ${isDeload ? '70%' : '85-88%'} (maintenance)`,zone:0},
+        {name:'Romanian Deadlift',detail:'3 × 5 @ RPE 7-8',zone:0},
+        {name:'Bulgarian Split Squat',detail:'3 × 6/leg heavy',zone:0},
+      ],
+      duration:'~70 min', focus:'📍 WHY: Strength BUILT in Foundation, MAINTAINED in Build. Energy shifts to race-specific work. Work day, fit it before 10 AM or after 4 PM.' },
 
     { day:'Thursday', type:'hyrox', title:'Full Doubles Sim with Aidan', icon:'👥', zone:4,
       exercises:[
@@ -604,22 +604,22 @@ function getDallasBuildWeek(weekNum) {
       ],
       duration:`${isLastFullWk ? 75 : 60} min`, focus:'📍 WHY: Dallas is solo — long run rebuilds endurance.' },
 
-    { day:'Tuesday', type:'strength', title:'Heavy Lower Maintenance', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Front Squat',detail:'4 × 4 @ RPE 7-8',zone:0},
-        {name:'RDL',detail:'3 × 6 @ RPE 7',zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg',zone:0},
-      ],
-      duration:'~60 min', focus:'📍 WHY: Maintain strength for Dallas. Tuesday is a free day.' },
-
-    { day:'Wednesday', type:'strength', title:'Heavy Upper Maintenance', icon:'💪', zone:0,
+    { day:'Tuesday', type:'strength', title:'Heavy Upper Maintenance', icon:'💪', zone:0,
       exercises:[
         {name:'Lat Pulldown',detail:'3 × 8-10 (vertical pull)',zone:0},
         {name:'Bent-Over Row',detail:'3 × 5',zone:0},
         {name:'Single-Arm Row',detail:'3 × 8/side heavy',zone:0},
         {name:'Push Press',detail:'3 × 5',zone:0},
       ],
-      duration:'~60 min', focus:'📍 WHY: Upper maintenance. Work day, before 10 AM or after 4 PM.' },
+      duration:'~60 min', focus:'📍 WHY: Upper maintenance. Tuesday is a free day.' },
+
+    { day:'Wednesday', type:'strength', title:'Heavy Lower Maintenance', icon:'🏋️', zone:0,
+      exercises:[
+        {name:'Front Squat',detail:'4 × 4 @ RPE 7-8',zone:0},
+        {name:'RDL',detail:'3 × 6 @ RPE 7',zone:0},
+        {name:'Bulgarian Split Squat',detail:'3 × 8/leg',zone:0},
+      ],
+      duration:'~60 min', focus:'📍 WHY: Maintain strength for Dallas. Work day, before 10 AM or after 4 PM.' },
 
     { day:'Thursday', type:'hyrox', title:'Half Hyrox SOLO Sim', icon:'🏁', zone:4,
       exercises:[
