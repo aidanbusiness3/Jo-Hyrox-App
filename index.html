@@ -285,59 +285,8 @@ function isDeloadWeek(weekNum) {
   return [4, 8].includes(weekNum);
 }
 
-// ===== WEEK 1 — BASELINE TESTING =====
-function getBaselineWeek() {
-  return [
-    { day:'Monday', type:'run', title:'Long Run Baseline — 60 min', icon:'🏃', zone:2,
-      exercises:[
-        {name:'Easy Run',detail:'60 min at conversational pace (Z2). NOT a test. Should be able to speak in 3-4 sentence chunks without gasping. LOG: total distance, avg HR, avg pace, how it felt.',zone:2},
-      ],
-      duration:'60 min', focus:'📍 WHY: Long run baseline. Establishes current easy-pace mileage capacity. The number that drops your HR at the same pace 6 weeks from now = aerobic fitness gain. Run with Aidan if possible.' },
-
-    { day:'Tuesday', type:'strength', title:'Lower Baseline — Find Squat 5RM', icon:'🏋️', zone:0,
-      exercises:[
-        {name:'Back Squat 5RM',detail:'Work up to a 5-rep max. The heaviest 5 clean reps. Stop if form breaks. LOG weight + RPE on last rep. ANCHOR for next 23 weeks.',zone:0},
-        {name:'Romanian Deadlift',detail:'3 × 8 @ challenging but clean weight (test working load)',zone:0},
-        {name:'Bulgarian Split Squat',detail:'3 × 8/leg moderate DBs (feel the pattern)',zone:0},
-      ],
-      duration:'75 min', focus:'📍 WHY: Squat 5RM is the most important strength number for the whole plan. Anchors all lower-body loads for the next 23 weeks. Bulgarian split squat introduced — single-leg work for size + sandbag lunge transfer.' },
-
-    { day:'Wednesday', type:'strength', title:'Upper Baseline — Find 5RMs', icon:'💪', zone:0,
-      exercises:[
-        {name:'Pull-Up Max (bodyweight)',detail:'Max strict bodyweight reps in one set. Upper-pull benchmark.',zone:0},
-        {name:'Overhead Press 5RM',detail:'Work up to a strict 5RM. No leg drive. LOG. Anchors Arnold press + push press loads.',zone:0},
-        {name:'Bent-Over Row',detail:'3 × 8 challenging weight (test working load)',zone:0},
-      ],
-      duration:'75 min', focus:'📍 WHY: Log all upper body numbers. These anchor every upper day going forward. Pull-up max sets the benchmark for adding weight progression. Work day, so fit it before 10 AM or after 4 PM.' },
-
-    { day:'Thursday', type:'hyrox', title:'Mini Sim with Aidan — Hyrox Baseline', icon:'🏁', zone:3,
-      exercises:[
-        {name:'Mini Hyrox',detail:'4 × (1 km run + 1 station). Moderate effort — NOT all-out. Stations rotate: wall ball (9 kg), sled push 25m @ 152 kg, sandbag lunge 20m @ 20 kg, burpees. Tests baseline race-format capacity + station strength. LOG times.',zone:3},
-      ],
-      duration:'60 min', focus:'📍 WHY: First taste of race format + baseline of which Hyrox stations feel hardest. Goal is information, not a PR. This is the far-gym day: go at 5 AM, done by 8, before the 10 AM shift.' },
-
-    { day:'Friday', type:'rest', title:'Full Rest', icon:'😴', zone:0,
-      exercises:[{name:'Rest',detail:'Full recovery. Sleep, hydrate, eat.',zone:0}],
-      duration:'—', focus:'📍 WHY: Friday rest. Locked in every week of this plan. Body absorbs the work.' },
-
-    { day:'Saturday', type:'intervals', title:'30-min Threshold TT — Baseline', icon:'⏱️', zone:4,
-      exercises:[
-        {name:'30-MIN TIME TRIAL',detail:'Run as hard as you can CONTINUOUSLY for 30 min. Treadmill or flat outdoor. Average pace = your current threshold. Don\'t go out too hot — find a hard but sustainable rhythm by min 5. LOG: avg pace, avg HR, how you felt at min 10/20/30.',zone:4},
-      ],
-      duration:'55 min', focus:'📍 WHY: THE most important test of Week 1. Your 30-min average pace defines your lactate threshold. Every Z1-Z5 band derives from this. Fresh off Friday rest = a clean number. Work day, so run it before 10 AM or after 4 PM.' },
-
-    { day:'Sunday', type:'strength', title:'Posterior Baseline — Find Hip Thrust 5RM', icon:'🦵', zone:0,
-      exercises:[
-        {name:'Barbell Hip Thrust 5RM',detail:'Work up to a 5-rep max. Top of hip lift, squeeze glutes hard. LOG. Anchors all Sunday posterior work.',zone:0},
-        {name:'Single-Leg RDL',detail:'3 × 8/leg moderate DBs (test pattern + balance)',zone:0},
-        {name:'Step-Ups',detail:'3 × 10/leg moderate DBs (test single-leg power)',zone:0},
-      ],
-      duration:'55 min', focus:'📍 WHY: Hip thrust 5RM = #1 posterior chain anchor for sled push power. Step-ups introduced — replaces glute bridge w/ band, better posterior chain stimulus + Hyrox transfer.' }
-  ];
-}
-
-// ===== PHASE 2 — FOUNDATION (Weeks 2-12) =====
-function getFoundationWeek(weekNum) {
+// ===== PHASE 1 — BASE (Weeks 1-8) =====
+function getBaseWeek(weekNum) {
   const isDeload = isDeloadWeek(weekNum);
   const phaseWk = weekNum; // 1-12
 
@@ -514,7 +463,7 @@ function getBuildWeek(weekNum) {
         {name:'Romanian Deadlift',detail:'3 × 5 @ RPE 7-8',zone:0},
         {name:'Bulgarian Split Squat',detail:'3 × 6/leg heavy',zone:0},
       ],
-      duration:'~70 min', focus:'📍 WHY: Strength BUILT in Foundation, MAINTAINED in Build. Energy shifts to race-specific work. Work day, fit it before 10 AM or after 4 PM.' },
+      duration:'~70 min', focus:'📍 WHY: Strength BUILT in Base, MAINTAINED in Build. Energy shifts to race-specific work. Work day, fit it before 10 AM or after 4 PM.' },
 
     { day:'Thursday', type:'hyrox', title:'Full Doubles Sim with Aidan', icon:'👥', zone:4,
       exercises:[
@@ -810,7 +759,7 @@ function generateTrainingPlan() {
     const deload = isDeloadWeek(week);
 
     let weekDays;
-    if (week <= 8)         weekDays = getFoundationWeek(week + 4);
+    if (week <= 8)         weekDays = getBaseWeek(week + 4);
     else if (week <= 17)   weekDays = getBuildWeek(Math.min(week + 4, 17));
     else if (week === 18)  weekDays = getTampaRaceWeek();
     else if (week <= 21)   weekDays = getDallasBuildWeek(week);
