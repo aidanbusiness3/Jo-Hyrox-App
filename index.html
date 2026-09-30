@@ -9,10 +9,10 @@
 <meta name="description" content="Jo — training & macro plan">
 <title>Jo Training</title>
 <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
 html{height:100%;overflow:hidden;-webkit-text-size-adjust:100%}
@@ -35,6 +35,8 @@ input,textarea,select{font-family:inherit;color:inherit;background:none;border:n
   --carb:#FF9500;
   --fat:#E8138C;
   --red:#E5484D;
+  --brand-ink:#111111;
+  --brand-tan:#B98A55;
   --green:#3AC267;
   --font:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --safe-t:env(safe-area-inset-top,0px);
@@ -91,13 +93,17 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 
 /* ---------- home ---------- */
 .greet{display:flex;align-items:center;gap:12px;padding:8px 18px 4px}
-.logo{width:56px;height:56px;border-radius:12px;background:#fff;color:#000;display:flex;align-items:center;
-      justify-content:center;font-weight:700;font-size:15px;letter-spacing:-.5px}
+.logo{height:56px;padding:0 13px;border-radius:12px;background:#fff;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0}
+.wordmark{font-family:'Archivo Black',sans-serif;font-size:16px;letter-spacing:-.6px;line-height:1;white-space:nowrap}
+.wordmark .k{color:var(--brand-ink)}
+.wordmark .t{color:var(--brand-tan)}
 .greet-act{margin-left:auto;display:flex;gap:16px;color:var(--text)}
 .daystrip{display:flex;gap:8px;padding:0 18px;overflow-x:auto;scrollbar-width:none}
 .daystrip::-webkit-scrollbar{display:none}
 .daycell{flex:1;min-width:44px;background:var(--surface);border-radius:12px;padding:10px 4px;text-align:center;border:1.5px solid transparent}
 .daycell.today{border-color:var(--accent)}
+.daycell.future{opacity:.4}
 .daycell .dot{width:26px;height:26px;border-radius:50%;background:#1F1F1F;margin:0 auto 8px;display:flex;
               align-items:center;justify-content:center;color:transparent}
 .daycell.done .dot{background:#2A2A2A;color:#8F8F8F}
@@ -354,6 +360,8 @@ const Storage = {
     const n = this.d.nutrition[ds];
     return !!(n && n.meals.some(m => m.foods.length));
   },
+  // TODO: becomes "every habit answered" once the check-in habit list lands
+  checkinDone(ds) { return !!this.d.checkins[ds]; },
   streak() {
     let n = 0;
     const d = new Date();
@@ -439,10 +447,14 @@ function renderHeader() {
 function renderHome() {
   const S = Storage.d;
   const t = today();
+  // Monday -> Sunday of the current week
   const strip = [];
-  for (let i = 6; i >= 0; i--) {
-    const ds = addDays(t, -i), d = parseISO(ds);
-    strip.push(`<button class="daycell ${S.checkins[ds]?'done':''} ${ds===t?'today':''}" onclick="App.toggleCheckin('${ds}')">
+  const monday = addDays(t, -((parseISO(t).getDay() + 6) % 7));
+  for (let i = 0; i < 7; i++) {
+    const ds = addDays(monday, i), d = parseISO(ds);
+    const future = ds > t;
+    strip.push(`<button class="daycell ${Storage.checkinDone(ds)?'done':''} ${ds===t?'today':''} ${future?'future':''}"
+      onclick="App.openCheckin('${ds}')">
       <div class="dot">${I.checkS}</div>
       <div class="dn">${DOW[d.getDay()]}</div>
       <div class="dd">${d.getDate()}</div>
@@ -458,7 +470,7 @@ function renderHome() {
 
   return `<div class="view">
     <div class="greet">
-      <div class="logo">JO</div>
+      <div class="logo"><span class="wordmark"><span class="t">A</span><span class="k">THLE</span><span class="t">TX</span></span></div>
       <div>
         <div class="t-md muted">Hi there</div>
         <div class="t-lg w5">${esc(S.name)} ${I.chev.replace('width="22" height="22"','width="16" height="16"')}</div>
@@ -836,6 +848,11 @@ const App = {
   go(v) { this.view = v; document.getElementById('app').scrollTop = 0; this.render(); },
 
   /* ---- home ---- */
+  // TODO: opens the habit checklist sheet once the habit list lands
+  openCheckin(ds) {
+    if (ds > today()) return;          // future days are locked
+    this.toggleCheckin(ds);
+  },
   toggleCheckin(ds) {
     const c = Storage.d.checkins;
     if (c[ds]) delete c[ds]; else c[ds] = true;
