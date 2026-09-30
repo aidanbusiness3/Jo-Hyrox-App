@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jo-app-v6';
+const CACHE_NAME = 'jo-app-v7';
 
 self.addEventListener('install', e => {
   e.waitUntil(
