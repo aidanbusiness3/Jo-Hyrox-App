@@ -208,6 +208,26 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .q-bool button{flex:1;height:46px;border-radius:10px;background:var(--surface2);font-size:15px;font-weight:500;color:var(--text2)}
 .q-bool button.on{background:var(--accent);color:#141410}
 
+/* ---------- toast ---------- */
+.toast{position:fixed;left:18px;right:18px;bottom:calc(var(--safe-b) + 96px);z-index:400;
+       background:var(--accent);color:#141410;border-radius:12px;padding:14px 16px;font-size:15px;font-weight:600;
+       text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:toastin .22s ease}
+@keyframes toastin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- copy-to-day picker ---------- */
+.cp-wk{font-size:11px;letter-spacing:.8px;color:var(--text3);font-weight:600;margin:14px 0 8px}
+.cp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cp-d{aspect-ratio:.82;background:var(--surface2);border-radius:10px;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:2px;border:1.5px solid transparent;padding:2px}
+.cp-d .n{font-size:9.5px;letter-spacing:.3px;color:var(--text3);font-weight:600}
+.cp-d .d{font-size:14px;font-weight:600}
+.cp-d.src{opacity:.35}
+.cp-d.on{background:var(--accent);color:#141410;border-color:var(--accent)}
+.cp-d.on .n{color:rgba(20,20,16,.7)}
+.cp-opt{display:flex;align-items:flex-start;gap:11px;margin:16px 0 4px}
+.cp-opt input{width:20px;height:20px;flex-shrink:0;margin-top:1px}
+.cp-opt label{font-size:14px;line-height:1.4;color:var(--text2)}
+
 /* ---------- barcode scanner ---------- */
 .scanwrap{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column}
 .scanwrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -741,7 +761,7 @@ function renderNutritionDay() {
         <div class="mealname">${esc(m.name)}</div>
         <div class="micons">
           <button class="iconbtn" onclick="App.editMeal(${mi})">${I.note}</button>
-          <button class="iconbtn" onclick="App.dupMeal(${mi})">${I.copy}</button>
+          <button class="iconbtn" onclick="App.copyMealSheet(${mi})">${I.copy}</button>
           <button class="iconbtn red" onclick="App.delMeal(${mi})">${I.trash}</button>
         </div>
       </div>
@@ -1052,6 +1072,84 @@ const App = {
 
   completeMeal(mi) { const d = Storage.day(this.nutDate); d.meals[mi].done = true; Storage.save(); this.render(); },
   reopenMeal(mi)   { const d = Storage.day(this.nutDate); d.meals[mi].done = false; Storage.save(); this.render(); },
+  /* ---- copy a meal to other days ---- */
+  copySel: null,
+
+  copyMealSheet(mi) {
+    this.copySel = new Set();
+    this.copyMi = mi;
+    this.renderCopySheet();
+  },
+  renderCopySheet() {
+    const mi = this.copyMi;
+    const src = Storage.day(this.nutDate).meals[mi];
+    const foods = src.foods.length;
+    const start = addDays(this.nutDate, -((parseISO(this.nutDate).getDay() + 6) % 7)); // Monday of this week
+
+    let grid = '';
+    for (let w = 0; w < 3; w++) {
+      const wkStart = addDays(start, w * 7);
+      grid += `<div class="cp-wk">${w === 0 ? 'THIS WEEK' : w === 1 ? 'NEXT WEEK' : 'WEEK AFTER'}</div><div class="cp-grid">`;
+      for (let i = 0; i < 7; i++) {
+        const ds = addDays(wkStart, i), d = parseISO(ds);
+        const isSrc = ds === this.nutDate;
+        grid += `<button class="cp-d ${isSrc ? 'src' : ''} ${this.copySel.has(ds) ? 'on' : ''}"
+            ${isSrc ? 'disabled' : `onclick="App.toggleCopyDay('${ds}')"`}>
+            <span class="n">${DOW[d.getDay()]}</span><span class="d">${d.getDate()}</span>
+          </button>`;
+      }
+      grid += '</div>';
+    }
+
+    const n = this.copySel.size;
+    Sheet.open(Sheet.head('Copy Meal') +
+      `<div class="card" style="margin-bottom:4px">
+         <div class="t-md w6">${esc(src.name)}</div>
+         <div class="t-sm muted" style="margin-top:4px">${foods} ${foods === 1 ? 'food' : 'foods'} · ${fmt(Storage.mealTotals(src).kcal)} kcal</div>
+       </div>
+       <button class="btn-accent" style="background:var(--surface2);color:var(--text);margin-top:12px"
+               onclick="App.dupMeal(${mi}); Sheet.close()">Duplicate in this day</button>
+       <div class="cp-wk" style="margin-top:22px">COPY TO</div>
+       ${grid}
+       <div class="cp-opt">
+         <input type="checkbox" id="cpRep" ${this.copyReplace === false ? '' : 'checked'}
+                onchange="App.copyReplace = this.checked">
+         <label for="cpRep">If that day already has a meal with the same name, fill that one instead of adding another</label>
+       </div>
+       <button class="btn-accent" style="margin-top:8px;${n ? '' : 'opacity:.4'}"
+               ${n ? `onclick="App.doCopyMeal()"` : 'disabled'}>
+         ${n ? `Copy to ${n} ${n === 1 ? 'day' : 'days'}` : 'Pick at least one day'}
+       </button>`);
+  },
+  toggleCopyDay(ds) {
+    if (this.copySel.has(ds)) this.copySel.delete(ds); else this.copySel.add(ds);
+    const sc = document.querySelector('.sheet') ? document.querySelector('.sheet').scrollTop : 0;
+    this.renderCopySheet();
+    const sh = document.querySelector('.sheet'); if (sh) sh.scrollTop = sc;
+  },
+  doCopyMeal() {
+    const src = Storage.day(this.nutDate).meals[this.copyMi];
+    const replace = this.copyReplace !== false;
+    const days = [...this.copySel].sort();
+    days.forEach(ds => {
+      const day = Storage.day(ds);
+      const copy = JSON.parse(JSON.stringify(src));
+      copy.done = false;
+      const slot = replace ? day.meals.findIndex(m => m.name === src.name) : -1;
+      if (slot >= 0) { day.meals[slot].foods = copy.foods; day.meals[slot].done = false; }
+      else day.meals.push(copy);
+      day.dayDone = false;
+    });
+    Storage.save(); Sheet.close(); this.render();
+    this.toast(`Copied to ${days.length} ${days.length === 1 ? 'day' : 'days'}`);
+  },
+  toast(text) {
+    const el = document.createElement('div');
+    el.className = 'toast'; el.textContent = text;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2200);
+  },
+
   dupMeal(mi) {
     const d = Storage.day(this.nutDate);
     d.meals.splice(mi+1, 0, JSON.parse(JSON.stringify(d.meals[mi])));
