@@ -18,6 +18,7 @@
 html{height:100%;overflow:hidden;-webkit-text-size-adjust:100%}
 button{cursor:pointer;border:none;background:none;font-family:inherit;color:inherit}
 input,textarea,select{font-family:inherit;color:inherit;background:none;border:none;outline:none}
+input[type=checkbox]{accent-color:var(--accent)}
 :root{
   --bg:#000000;
   --surface:#141414;
@@ -207,6 +208,26 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:
 .q-bool button{flex:1;height:46px;border-radius:10px;background:var(--surface2);font-size:15px;font-weight:500;color:var(--text2)}
 .q-bool button.on{background:var(--accent);color:#141410}
 
+/* ---------- barcode scanner ---------- */
+.scanwrap{position:fixed;inset:0;z-index:300;background:#000;display:flex;flex-direction:column}
+.scanwrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scan-ui{position:relative;flex:1;display:flex;flex-direction:column;justify-content:space-between;
+         padding:calc(var(--safe-t) + 14px) 18px calc(var(--safe-b) + 24px)}
+.scan-top{display:flex;align-items:center;justify-content:space-between}
+.scan-top h3{font-size:18px;font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.scan-x{width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center}
+.reticle{align-self:center;width:78%;max-width:320px;aspect-ratio:1.6;border-radius:16px;
+         box-shadow:0 0 0 2000px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.85);position:relative}
+.reticle::after{content:'';position:absolute;left:8%;right:8%;top:50%;height:2px;background:var(--accent);
+                box-shadow:0 0 10px var(--accent);animation:sweep 1.9s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:translateY(-46px)}50%{transform:translateY(46px)}}
+.scan-msg{text-align:center;font-size:15px;color:#E6E6E6;text-shadow:0 1px 6px rgba(0,0,0,.9);min-height:22px}
+.scan-foot{display:flex;flex-direction:column;gap:10px;align-items:center}
+.scan-manual{background:rgba(0,0,0,.55);border-radius:999px;padding:11px 20px;font-size:14px;color:#fff}
+.scan-err{margin:auto;max-width:300px;text-align:center;background:rgba(0,0,0,.7);border-radius:14px;padding:20px;font-size:15px;line-height:1.5}
+.bcnote{display:flex;gap:8px;align-items:center;background:var(--accent-soft);color:var(--accent);
+        border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+
 /* ---------- sheet / modal ---------- */
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:flex-end;animation:fade .18s ease}
 .sheet{width:100%;max-height:88vh;background:#121212;border-radius:22px 22px 0 0;padding:18px 18px calc(18px + var(--safe-b));
@@ -263,6 +284,7 @@ const I = {
   book:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2 2 0 0 1 6 3.5h13V19H6a2 2 0 0 0-2 2V5.5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>',
   scale:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8 9.5a4 4 0 0 1 8 0"/><path d="M12 9.5 10 13"/></svg>',
   down:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></svg>',
+  scan:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8V5.5A2.5 2.5 0 0 1 5.5 3H8M16 3h2.5A2.5 2.5 0 0 1 21 5.5V8M21 16v2.5a2.5 2.5 0 0 1-2.5 2.5H16M8 21H5.5A2.5 2.5 0 0 1 3 18.5V16"/><path d="M7 8v8M10 8v8M13.5 8v8M17 8v8"/></svg>',
   reset:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v4h4"/></svg>'
 };
 
@@ -440,6 +462,7 @@ const today = () => iso(new Date());
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const r1 = n => Math.round(n*10)/10;
 const fmt = n => { const v = r1(n); return Number.isInteger(v) ? String(v) : v.toFixed(1); };
+const normBarcode = c => String(c || '').replace(/\D/g, '').replace(/^0+/, '');
 const addDays = (ds, n) => { const d = parseISO(ds); d.setDate(d.getDate()+n); return iso(d); };
 const dateLabel = ds => ds === today() ? 'Today' : (ds === addDays(today(),-1) ? 'Yesterday'
   : ds === addDays(today(),1) ? 'Tomorrow' : (() => { const d = parseISO(ds); return `${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]}, ${MON[d.getMonth()]} ${d.getDate()}`; })());
@@ -1117,10 +1140,15 @@ const App = {
           <span class="iconbtn">${I.plus}</span>
         </div>`).join('') || `<div class="empty">No saved food matches.</div>`;
     Sheet.open(Sheet.head('Add Food') +
-      `<div class="fld"><input id="fq" placeholder="Search your foods…" oninput="App.foodSearchLive(this.value)" value="${esc(q)}"></div>
+      `<div class="row" style="gap:10px;margin-bottom:12px">
+         <div class="fld" style="flex:1;margin:0"><input id="fq" placeholder="Search your foods…" oninput="App.foodSearchLive(this.value)" value="${esc(q)}"></div>
+         <button class="arrow" style="width:50px;height:46px;border-radius:10px;color:var(--accent)" onclick="App.openScanner()">${I.scan}</button>
+       </div>
        <div id="flist">${list}</div>
        <div style="height:14px"></div>
-       <button class="btn-accent" onclick="App.foodForm(null,null,false)">+ Create New Food</button>`);
+       <button class="btn-accent" onclick="App.openScanner()">${I.scan} &nbsp;Scan Barcode</button>
+       <div style="height:10px"></div>
+       <button class="btn-accent" style="background:var(--surface2);color:var(--text)" onclick="App.foodForm(null,null,false)">+ Create New Food</button>`);
     setTimeout(()=>{ const el = document.getElementById('fq'); if (el) { el.focus(); el.selectionStart = el.value.length; } }, 80);
   },
   foodSearchLive(q) {
@@ -1137,9 +1165,15 @@ const App = {
     const f = Storage.d.foods.find(x => x.id === id);
     if (f) this.foodForm(f, f.base, true);
   },
-  foodForm(f, amount, fromLib) {
+  findByBarcode(code) {
+    const n = normBarcode(code);
+    return n ? Storage.d.foods.find(f => f.barcode && normBarcode(f.barcode) === n) : undefined;
+  },
+  foodForm(f, amount, fromLib, note) {
     const v = f || { name:'', unit:'g', base:100, kcal:'', p:'', c:'', f:'' };
+    this.pendingBarcode = (f && f.barcode) || this.pendingBarcode || null;
     Sheet.open(Sheet.head(fromLib ? 'Add to Meal' : 'New Food') +
+      (note ? `<div class="bcnote">${I.scan}<span>${esc(note)}</span></div>` : '') +
       `<div class="fld"><label>FOOD</label><input id="xn" value="${esc(v.name)}" placeholder="Cavatappi by banza"></div>
        <div class="fld"><label>MACROS PER SERVING</label><div class="fld4">
          <input id="xb" inputmode="decimal" value="${v.base}" placeholder="amt">
@@ -1165,8 +1199,10 @@ const App = {
     const cb = document.getElementById('xs');
     if (!fromLib && cb && cb.checked) {
       Storage.d.foods.push({ id:'u'+Date.now(), name:entry.name, base, unit:entry.unit,
-        kcal:Sheet.num('xk'), p:Sheet.num('xp'), c:Sheet.num('xc'), f:Sheet.num('xf') });
+        kcal:Sheet.num('xk'), p:Sheet.num('xp'), c:Sheet.num('xc'), f:Sheet.num('xf'),
+        barcode: this.pendingBarcode || undefined });
     }
+    this.pendingBarcode = null;
     const meal = Storage.day(this.nutDate).meals[this.fsCtx.mi];
     if (this.fsCtx.fi === null) meal.foods.push(entry); else meal.foods[this.fsCtx.fi] = entry;
     Storage.save(); Sheet.close(); this.render();
@@ -1176,6 +1212,164 @@ const App = {
     meal.foods.splice(this.fsCtx.fi, 1);
     Storage.save(); Sheet.close(); this.render();
   },
+  /* ---- barcode scanning ---- */
+  pendingBarcode: null,
+  _reader: null,
+
+  loadZXing() {
+    if (window.ZXing) return Promise.resolve();
+    if (this._zxingPromise) return this._zxingPromise;
+    this._zxingPromise = new Promise((res, rej) => {
+      const t = document.createElement('script');
+      t.src = 'vendor/zxing.min.js';
+      t.onload = res;
+      t.onerror = () => rej(new Error('Could not load the scanner. Connect to the internet once and it will be cached.'));
+      document.head.appendChild(t);
+    });
+    return this._zxingPromise;
+  },
+
+  openScanner() {
+    document.getElementById('overlay').innerHTML = `
+      <div class="scanwrap" id="scanwrap">
+        <video id="scanvid" playsinline muted autoplay></video>
+        <div class="scan-ui">
+          <div class="scan-top">
+            <h3>Scan Barcode</h3>
+            <button class="scan-x" onclick="App.closeScanner()">${I.x}</button>
+          </div>
+          <div class="reticle"></div>
+          <div class="scan-foot">
+            <div class="scan-msg" id="scanmsg">Starting camera…</div>
+            <button class="scan-manual" onclick="App.manualBarcode()">Enter barcode by hand</button>
+          </div>
+        </div>
+      </div>`;
+    this.startScan();
+  },
+
+  async startScan() {
+    const msg = t => { const el = document.getElementById('scanmsg'); if (el) el.textContent = t; };
+    try {
+      await this.loadZXing();
+    } catch (e) { return this.scanError(e.message); }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia)
+      return this.scanError('This browser cannot use the camera. Enter the barcode by hand instead.');
+
+    const Z = window.ZXing;
+    const hints = new Map();
+    hints.set(Z.DecodeHintType.POSSIBLE_FORMATS, [
+      Z.BarcodeFormat.EAN_13, Z.BarcodeFormat.EAN_8,
+      Z.BarcodeFormat.UPC_A,  Z.BarcodeFormat.UPC_E,
+      Z.BarcodeFormat.CODE_128
+    ]);
+    hints.set(Z.DecodeHintType.TRY_HARDER, true);
+    this._reader = new Z.BrowserMultiFormatReader(hints, 300);
+
+    try {
+      msg('Point at the barcode');
+      await this._reader.decodeFromConstraints(
+        { video: { facingMode: { ideal: 'environment' }, width:{ideal:1280}, height:{ideal:720} } },
+        'scanvid',
+        (result, err) => {
+          if (!result) return;
+          if (navigator.vibrate) navigator.vibrate(40);
+          const code = result.getText().replace(/\D/g, '');
+          if (!code) return;
+          this.stopScan();
+          this.onBarcode(code);
+        }
+      );
+    } catch (e) {
+      const denied = /NotAllowed|Permission/i.test(e && (e.name + e.message));
+      this.scanError(denied
+        ? 'Camera access was blocked. Allow the camera in Settings → Safari, or enter the barcode by hand.'
+        : 'Could not start the camera. Enter the barcode by hand instead.');
+    }
+  },
+
+  scanError(text) {
+    const w = document.getElementById('scanwrap');
+    if (!w) return;
+    w.innerHTML = `<div class="scan-ui">
+        <div class="scan-top"><h3>Scan Barcode</h3>
+          <button class="scan-x" onclick="App.closeScanner()">${I.x}</button></div>
+        <div class="scan-err">${esc(text)}</div>
+        <div class="scan-foot"><button class="scan-manual" onclick="App.manualBarcode()">Enter barcode by hand</button></div>
+      </div>`;
+  },
+
+  stopScan() {
+    try { if (this._reader) this._reader.reset(); } catch(e) {}
+    const v = document.getElementById('scanvid');
+    if (v && v.srcObject) { v.srcObject.getTracks().forEach(t => t.stop()); v.srcObject = null; }
+    this._reader = null;
+  },
+  closeScanner() { this.stopScan(); Sheet.close(); },
+
+  manualBarcode() {
+    this.stopScan();
+    Sheet.open(Sheet.head('Enter Barcode') +
+      `<div class="fld"><label>BARCODE NUMBER</label><input id="bc" inputmode="numeric" placeholder="028400433303"></div>
+       <button class="btn-accent" onclick="App.onBarcode(Sheet.val('bc'))">Look Up</button>`);
+    setTimeout(()=>{ const el=document.getElementById('bc'); if (el) el.focus(); }, 80);
+  },
+
+  async onBarcode(code) {
+    code = String(code || '').replace(/\D/g, '');
+    if (!code) return;
+    this.pendingBarcode = code;
+
+    // already in her library -> straight to the amount step
+    const known = this.findByBarcode(code);
+    if (known) return this.foodForm(known, known.base, true);
+
+    Sheet.open(Sheet.head('Looking Up…') +
+      `<div class="empty" style="padding:40px 0">Searching for barcode<br><b>${esc(code)}</b></div>`);
+
+    const food = await this.lookupBarcode(code);
+    if (food) {
+      this.foodForm(food, food.serving || food.base, false, `Found: ${food.name}. Check the numbers before saving.`);
+    } else {
+      this.foodForm({ name:'', unit:'g', base:100, kcal:'', p:'', c:'', f:'', barcode:code },
+        100, false, `Barcode ${code} is not in the food database. Enter it once and it will be remembered.`);
+    }
+  },
+
+  async lookupBarcode(code) {
+    try {
+      const url = 'https://world.openfoodfacts.org/api/v2/product/' + encodeURIComponent(code) +
+                  '.json?fields=product_name,brands,quantity,serving_size,serving_quantity,nutriments';
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 9000);
+      const r = await fetch(url, { signal: ctl.signal });
+      clearTimeout(timer);
+      if (!r.ok) return null;
+      const d = await r.json();
+      if (d.status !== 1 || !d.product) return null;
+
+      const p = d.product, n = p.nutriments || {};
+      const kcal = n['energy-kcal_100g'];
+      if (kcal === undefined || kcal === null) return null;
+
+      const liquid = /ml|l\b/i.test(p.serving_size || p.quantity || '');
+      const name = [p.product_name, p.brands ? p.brands.split(',')[0].trim() : ''].filter(Boolean).join(' by ');
+      const sq = parseFloat(p.serving_quantity);
+
+      return {
+        name: name || ('Barcode ' + code),
+        base: 100,
+        unit: liquid ? 'ml' : 'g',
+        kcal: r1(kcal),
+        p: r1(n.proteins_100g || 0),
+        c: r1(n.carbohydrates_100g || 0),
+        f: r1(n.fat_100g || 0),
+        serving: (!isNaN(sq) && sq > 0) ? sq : 100,
+        barcode: code
+      };
+    } catch (e) { return null; }
+  },
+
   openLibrary() {
     const list = Storage.d.foods.map(f => `<div class="libitem">
         <div class="nm">${esc(f.name)}<div class="mc">${fmt(f.kcal)} kcal · ${fmt(f.p)}P ${fmt(f.c)}C ${fmt(f.f)}F / ${fmt(f.base)} ${esc(f.unit)}</div></div>

@@ -1,8 +1,8 @@
-const CACHE_NAME = 'jo-app-v7';
+const CACHE_NAME = 'jo-app-v8';
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(['./', './index.html']))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(['./', './index.html', './vendor/zxing.min.js']))
   );
   self.skipWaiting();
 });
